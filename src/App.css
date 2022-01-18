@@ -1,38 +1,51 @@
 .App {
-  text-align: center;
+
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navigateBlock{
+    display: flex;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navigate {
+
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+.headerPanel{
+    display: flex;
+    justify-content: space-between;
+    height: 112px;
+    border-bottom: 1px solid #ECEFF2;
+    width: 100%;
+    align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+
+.searchBlock{
+    position: relative;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.searchBlock label:before {
+    content: "";
+    position: absolute;
+    left:60px;
+    top: 0;
+    bottom: 0;
+    width: 20px;
+    opacity: 0.4;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='25' height='25' viewBox='0 0 25 25' fill-rule='evenodd'%3E%3Cpath d='M16.036 18.455l2.404-2.405 5.586 5.587-2.404 2.404zM8.5 2C12.1 2 15 4.9 15 8.5S12.1 15 8.5 15 2 12.1 2 8.5 4.9 2 8.5 2zm0-2C3.8 0 0 3.8 0 8.5S3.8 17 8.5 17 17 13.2 17 8.5 13.2 0 8.5 0zM15 16a1 1 0 1 1 2 0 1 1 0 1 1-2 0'%3E%3C/path%3E%3C/svg%3E") center / contain no-repeat;
 }
+
+
+.search{
+    width: 281px;
+    height: 48px;
+    border: 1px solid #ECEFF2;
+    box-sizing: border-box;
+    border-radius: 3px;
+    color: #3E4C59;
+    margin-left: 48px;
+    padding-left: 41px;
+}
+
