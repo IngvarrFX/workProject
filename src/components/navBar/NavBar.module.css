@@ -1,0 +1,81 @@
+.nav{
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ECEFF2;
+    height: 100vh;
+    padding-top: 34px;
+}
+.nav a{
+    text-decoration: none;
+    color:rgba(62, 76, 89, 0.7);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    margin-bottom: 42px;
+}
+
+.logo{
+    margin-bottom: 166px;
+}
+
+.home{
+    display: flex;
+    align-items: center;
+}
+.warehouses{
+    display: flex;
+    align-items: center;
+}
+.accounts{
+    display: flex;
+    align-items: center;
+}
+.cards{
+    display: flex;
+    align-items: center;
+}
+.contacts{
+    display: flex;
+    align-items: center;
+}
+.chat{
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+.home::before {
+    content: url("../../assets/Home.svg");
+    margin-right: 18px;
+}
+
+
+.warehouses::before {
+    content: url("../../assets/Document.svg");
+    margin-right: 18px;
+}
+
+.accounts::before {
+    content: url("../../assets/Category.svg");
+    margin-right: 18px;
+}
+
+.cards::before {
+    content: url("../../assets/Chart.svg");
+    margin-right: 18px;
+}
+
+.contacts::before {
+    content: url("../../assets/2 User.svg");
+    margin-right: 18px;
+}
+
+.chat::before {
+    content: url("../../assets/Chat.svg");
+    margin-right: 18px;
+}
+

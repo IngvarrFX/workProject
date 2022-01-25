@@ -1,0 +1,94 @@
+.loginPage {
+    background: linear-gradient(to right, #FFFFFF 68%, #E4EEF8 22%);
+    height: 100vh;
+    position: relative;
+}
+.trackBg{
+    position: absolute;
+    margin-top: 100px;
+    right: 0;
+    z-index: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 25px;
+    margin-bottom: 225px;
+}
+
+.login {
+    display: flex;
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+    width: 30%;
+}
+
+.links a {
+    text-decoration: none;
+    color: rgba(62, 76, 89, 0.7);
+    margin-right: 40px;
+}
+
+.leftPartHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.startButton {
+    width: 170px;
+    height: 60px;
+    border: none;
+    background-color: #EE950F;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 3px;
+    margin-bottom: 210px;
+    cursor: pointer;
+}
+
+.textBlock {
+    max-width: 575px;
+}
+
+.motto {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 72px;
+    line-height: 87px;
+    color: #3E4C59;
+    margin-bottom: 32px;
+}
+
+.text {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(62, 76, 89, 0.4);
+    margin-bottom: 40px;
+    max-width: 333px;
+}
+
+.scrollButton {
+    color: rgba(15, 32, 49, 0.7);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.scroll button {
+    display: flex;
+    align-items: center;
+}
+
+.scroll ::before {
+    content: url("../../assets/scroll.svg");
+    margin-right: 18px;
+}

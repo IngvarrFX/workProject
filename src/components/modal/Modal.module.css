@@ -1,0 +1,74 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 0 auto;
+
+}
+
+.submit {
+    height: 62px;
+    width: 300px;
+    border: none;
+    background-color: #EE950F;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 3px;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+
+.submit:disabled {
+    opacity: 0.4;
+}
+
+.message {
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.password {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+.password label {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 12px;
+    color: #3E4C59;
+    margin-bottom: -10px;
+}
+
+.email {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+.email label {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 12px;
+    color: #3E4C59;
+    margin-bottom: -10px;
+}
+
+.login {
+    background-color: #EE950F;
+    border: none;
+
+}
+
+.buttonLink {
+    background-color: transparent;
+    border: none;
+    color: #EE950F;
+    cursor: pointer;
+}

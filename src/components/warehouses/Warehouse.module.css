@@ -1,0 +1,56 @@
+.title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 36px;
+    color: #3E4C59;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 72px;
+    margin-left: 47px;
+    margin-right: 64px;
+    margin-bottom: 36px;
+}
+.control{
+    display: flex;
+    justify-content: center;
+}
+
+.select {
+    width:  190px;
+    padding: 5px 35px 5px 5px;
+    border: 1px solid #ECEFF2;
+    border-radius: 3px;
+    height: 44px;
+    margin-right: 24px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding-left: 16px;
+    color: rgba(62, 76, 89, 0.85);
+    font-size: 12px;
+    line-height: 12px;
+    background: url("../../assets/array.svg") 90% / 6% no-repeat  #FBFBFB;
+
+}
+
+.addButton{
+    width: 173px;
+    height: 44px;
+    border: none;
+    background-color: #EE950F;
+    color: white;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 12px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.table{
+    margin-left: 47px;
+    margin-right: 64px;
+}
