@@ -1,0 +1,38 @@
+.block {
+    margin-bottom: 40px;
+}
+
+.labelRadio {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 14px;
+    color: #3E4C59;
+}
+
+.radioBtn {
+    display: flex;
+    margin-top: 20px;
+}
+
+.radioBtn span {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 14px;
+    color: rgba(62, 76, 89, 0.4);
+    margin-right: 4px;
+}
+
+.radioBlock {
+    display: flex;
+    align-items: center;
+}
+
+.radioBtn input {
+    margin-right: 24px;
+    height: 28px;
+    width: 28px;
+}
+
+

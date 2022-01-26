@@ -1,0 +1,54 @@
+.shipMethod {
+    width: 300px;
+    height: 60px;
+    background: #F8F9F9;
+    border-radius: 3px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 13px;
+    box-sizing: border-box;
+}
+
+
+.shipMethod label {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    color: rgba(62, 76, 89, 0.4);
+    display: flex;
+    align-items: center;
+}
+
+.check_input {
+    appearance: none;
+}
+
+
+.checkbox {
+    width: 24px;
+    height: 24px;
+}
+
+.check_input:checked + .checkbox {
+    background-image: url("../../assets/check.svg");
+}
+
+
+.air::before {
+    content: url("../../assets/air.svg");
+    margin-right: 18px;
+    filter: grayscale(1);
+}
+
+.ship::before {
+    content: url("../../assets/ship.svg");
+    margin-right: 18px;
+}
+
+.truck::before {
+    content: url("../../assets/truck.svg");
+    margin-right: 18px;
+}

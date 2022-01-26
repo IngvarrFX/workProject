@@ -19,12 +19,20 @@ type TablePropsType = {
 
 
 export const BasicTable: React.FC<TablePropsType> = ({theadData, trow,chooseProduct}) => {
+
+
+
+    const styleCell = {
+        display: "flex",
+        alignItems: "center",
+    }
+
     return (
         <TableContainer component={Paper} style={{height: "78vh"}}>
             <Table sx={{minWidth: 650}} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        {theadData.map((th, index) => th === "All stores" ? <TableCell key={index}><Checkbox style={{color: "#EE950F"}} />{th}</TableCell> : <TableCell key={index}>{th}</TableCell>)}
+                        {theadData.map((th, index) => th === "All stores" ? <TableCell style={styleCell} key={index}><input type={"checkbox"}/>{th}</TableCell> : <TableCell key={index}>{th}</TableCell>)}
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -35,7 +43,7 @@ export const BasicTable: React.FC<TablePropsType> = ({theadData, trow,chooseProd
                         >
 
                             <TableCell component="th" scope="row">
-                                <Checkbox  style={{color: "#EE950F"}}/>
+                                <input type={"checkbox"}  style={{textAlign:"center"}} />
                                 <button className={styles.button}
                                         onClick={() => chooseProduct(row.id, row.title)}>{row.title}</button>
                             </TableCell>

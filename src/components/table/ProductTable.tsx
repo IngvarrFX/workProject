@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,6 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import {WarehouseType} from "../../data";
+import styles from "./ProductTable.module.css"
 import {Checkbox} from "@mui/material";
 
 
@@ -17,13 +18,18 @@ type ProductTablePropsType = {
 }
 
 
+
+
 export const ProductTable:React.FC<ProductTablePropsType> = ({theadData, trow}) => {
+
+
+
     return (
         <TableContainer component={Paper} style={{height: "78vh"}}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        {theadData.map((th,index) => th === "All products" ? <TableCell key={index}><Checkbox  style={{color: "#EE950F"}}  />{th}</TableCell> : <TableCell key={index}>{th}</TableCell>)}
+                        {theadData.map((th,index) => th === "All products" ? <TableCell key={index}><input type="checkbox"/>{th}</TableCell> : <TableCell key={index}>{th}</TableCell>)}
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -34,13 +40,14 @@ export const ProductTable:React.FC<ProductTablePropsType> = ({theadData, trow}) 
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">
-                                <Checkbox  style={{color: "#EE950F"}}  />
+                               {/* <Checkbox  style={{color: "#EE950F"}}  />*/}
+                                <input type="checkbox"/>
                                 {row.productName}
                             </TableCell>
                             <TableCell align="left">{row.manufacturer}</TableCell>
                             <TableCell align="left">{row.itemNumber}</TableCell>
                             <TableCell align="left">{row.purchasingTechnology}</TableCell>
-                            <TableCell align="left">{row.shipmentMethod}</TableCell>
+                            <TableCell className={styles[row.shipmentMethod]} align="left">{row.shipmentMethod}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

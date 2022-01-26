@@ -1,0 +1,32 @@
+.AIR::before {
+    content: url("../../assets/air.svg");
+    filter: grayscale(90);
+    margin-right: 18px;
+}
+
+.SEA::before {
+    content: url("../../assets/ship.svg");
+    margin-right: 18px;
+}
+
+.TRUCK::before {
+    content: url("../../assets/truck.svg");
+    margin-right: 18px;
+}
+
+
+
+.AIR {
+    display: flex;
+    align-items: center;
+}
+
+.SEA {
+    display: flex;
+    align-items: center;
+}
+
+.TRUCK {
+    display: flex;
+    align-items: center;
+}

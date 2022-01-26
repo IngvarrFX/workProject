@@ -18,7 +18,7 @@ export const Main = () => {
     const [titleProduct, setTitleProduct] = React.useState("");
     const [showProductTable, setShowProductTable] = React.useState(false)
     const [showSuccess, setShowSuccess] = useState(false)
-    const [step, setStep] = useState(1)
+
 
     const [checkedAll, setCheckedAll] = useState(false)
 
@@ -61,18 +61,6 @@ export const Main = () => {
 
     const disable = name == "" || lenght == "" || width == "" || height == ""
 
-    /*    const handleOnSelectAll = (e:number) => {
-            const {checked} = e.target;
-            const newRefundGoods = [...refundGoods];
-            let array = []
-            if (!checked) {
-                array = newRefundGoods.map(opt => ({...opt, selected: false}));
-            } else {
-                array = newRefundGoods.map(opt => ({...opt, selected: true}));
-            }
-            setRefundGoods(array);
-            setCheckedAll(!checkedAll)
-        };*/
 
 
     return (
@@ -106,7 +94,7 @@ export const Main = () => {
                                            placeholder={"Enter the width"} label={"Width, m"}/>
                                     <Input value={height} setValue={(value) => setHeight(value)}
                                            placeholder={"Enter the height"} label={"Height, m"}/>
-                                    <button className={styles.addButton} disabled={disable} onClick={addWarehouse}>Add a
+                                    <button className={styles.addButton} style={{backgroundColor: disable ? "#E6E8EA" : ""}} disabled={disable} onClick={addWarehouse}>Add a
                                         warehouse
                                     </button>
                                 </div>
@@ -121,8 +109,7 @@ export const Main = () => {
                                             isShowModal={() => setShowInput(true)}/>
                                 :
                                 <Warehouse title={titleProduct} idProduct={idProduct}
-                                           isShowModal={() => setShowInput(true)} step={step}
-                                           nextStep={() => setStep(s => s + 1)}/>
+                                           isShowModal={() => setShowInput(true)} />
                             }
                         </div>
                     </div>
