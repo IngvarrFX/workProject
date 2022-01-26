@@ -10,6 +10,7 @@ export type AddProductType = {
 
 
 type DataType = {
+    id:string
     warehouseId: string
     productName: string
     manufacturer: string

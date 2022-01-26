@@ -8,18 +8,18 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import {DataType} from "../../data";
 import styles from "./Table.module.css"
-import {Checkbox} from "@mui/material";
 
 
-type TablePropsType = {
+type BasicTablePropsType = {
     theadData: string[]
     trow: DataType
     chooseProduct: (id: string, title: string) => void
+    checkedAll: (value: boolean) => void
+    changeCheckedWarehouse:(value: boolean, warehouseID: string)=> void
 }
 
 
-export const BasicTable: React.FC<TablePropsType> = ({theadData, trow,chooseProduct}) => {
-
+export const BasicTable: React.FC<BasicTablePropsType> = ({theadData, trow, chooseProduct, checkedAll, changeCheckedWarehouse}) => {
 
 
     const styleCell = {
@@ -32,7 +32,11 @@ export const BasicTable: React.FC<TablePropsType> = ({theadData, trow,chooseProd
             <Table sx={{minWidth: 650}} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        {theadData.map((th, index) => th === "All stores" ? <TableCell style={styleCell} key={index}><input type={"checkbox"}/>{th}</TableCell> : <TableCell key={index}>{th}</TableCell>)}
+                        {theadData.map((th, index) => th === "All stores" ?
+                            <TableCell style={styleCell} key={index}><input type={"checkbox"}
+                                                                            onChange={(e) => checkedAll(e.currentTarget.checked)}/>{th}
+                            </TableCell> :
+                            <TableCell key={index}>{th}</TableCell>)}
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -43,7 +47,7 @@ export const BasicTable: React.FC<TablePropsType> = ({theadData, trow,chooseProd
                         >
 
                             <TableCell component="th" scope="row">
-                                <input type={"checkbox"}  style={{textAlign:"center"}} />
+                                <input checked={row.selected} onChange={(e)=>changeCheckedWarehouse(e.currentTarget.checked, row.id)} type={"checkbox"} style={{textAlign: "center"}}/>
                                 <button className={styles.button}
                                         onClick={() => chooseProduct(row.id, row.title)}>{row.title}</button>
                             </TableCell>

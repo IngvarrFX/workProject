@@ -2,8 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { HorizontalStepper} from "../../../features/Stepper";
-import styles from './AddProductModal.module.css'
+import {HorizontalStepper} from "../../../features/Stepper";
 import {Title} from "../../title/Title";
 
 const style = {

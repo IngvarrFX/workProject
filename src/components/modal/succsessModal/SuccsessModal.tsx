@@ -1,7 +1,5 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 
 const style = {
@@ -9,10 +7,14 @@ const style = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: 600,
+    minHeight: 600,
     bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: "3px",
     p: 4,
 };
 
@@ -20,9 +22,10 @@ const style = {
 type SuccsessModalType = {
     isOpen: boolean
     toggleMode: () => void
+    children:React.ReactNode
 }
 
-export const SuccsessModal: React.FC<SuccsessModalType> = ({isOpen,toggleMode}) => {
+export const SuccsessModal: React.FC<SuccsessModalType> = ({isOpen,toggleMode, children}) => {
 
     const handleClose = () => toggleMode;
 
@@ -35,12 +38,7 @@ export const SuccsessModal: React.FC<SuccsessModalType> = ({isOpen,toggleMode}) 
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{mt: 2}}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography>
+                    {children}
                 </Box>
             </Modal>
         </div>

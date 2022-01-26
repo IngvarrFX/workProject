@@ -10,21 +10,25 @@ import {RadioButton} from "../../features/radioButton/RadioButton";
 import {ShipingSelect} from "../../features/shipingSelect/ShipingSelect";
 import {PayingSelect} from "../../features/payingSelect/PayingSelect";
 import {AddProduct} from "../../store/actions/addProduct";
-import {Title} from "../title/Title";
+import {SuccsessModal} from "../modal/succsessModal/SuccsessModal";
+import success from "../../assets/successImg2.svg"
+import {setCheckedProductAC} from "../../store/actions/setCheckedProduct";
+import {v1} from "uuid";
 
 
 type WarehousePropsType = {
     title: string
-    idProduct: string
+    idWarehouse: string
     isShowModal: () => void
-
+    checkedAll: (value: boolean) => void
 }
 
 
-export const Warehouse: React.FC<WarehousePropsType> = ({title, idProduct, isShowModal}) => {
+export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isShowModal, checkedAll}) => {
 
 
     const [isShowAddProductModal, setIsShowAddProductModal] = React.useState(false)
+    const [succsessModal, setSuccsessModal] = React.useState(false)
 
     const [step, setStep] = useState(0)
 
@@ -68,7 +72,7 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idProduct, isSho
 
 
     const nextStep = () => {
-        if (step < 4) {
+        if (step < 5) {
             setStep(s => s + 1)
         }
     }
@@ -76,7 +80,8 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idProduct, isSho
     const createProduct = () => {
 
         dispatch(AddProduct({
-            warehouseId: idProduct,
+            warehouseId: idWarehouse,
+            id: v1(),
             shipMethod,
             productName,
             payMethod,
@@ -92,7 +97,17 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idProduct, isSho
         setPayMethod("card")
         setShipMethod("AIR")
 
+        setStep(s => s + 1)
+        setSuccsessModal(true)
+    }
+
+    const setCheckProduct = (value: boolean, productId: string) => {
+        dispatch(setCheckedProductAC(value, productId, idWarehouse))
+    }
+
+    const closeSuccessModal = () => {
         setStep(0)
+        setSuccsessModal(false)
     }
 
 
@@ -136,7 +151,13 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idProduct, isSho
                     <button className={styles.nextBtn} onClick={createProduct}>Choose
                     </button>
                 </AddProductModal>;
-
+            case 4:
+                return <SuccsessModal isOpen={succsessModal} toggleMode={() => setSuccsessModal(false)}>
+                    <img className={styles.img} src={success}/>
+                    <span className={styles.successTitle}>The cargo was successfully created</span>
+                    <button className={styles.nextBtn} onClick={closeSuccessModal}>Continue
+                    </button>
+                </SuccsessModal>
             default:
                 return false
         }
@@ -148,9 +169,8 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idProduct, isSho
             <div className={styles.header}>
                 <div className={styles.title}>{title}</div>
                 <div className={styles.control}>
-                    <select className={styles.select}>
+                    <select defaultValue={"Filter by"} className={styles.select}>
                         <option>Apples</option>
-                        <option selected>Filter by</option>
                         <option>Chocklate</option>
                         <option>Pancakes</option>
                     </select>
@@ -159,7 +179,8 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idProduct, isSho
                 </div>
             </div>
             <div className={styles.table}>
-                <ProductTable theadData={theadWarehouse} trow={findProducts(data, idProduct)}/>
+                <ProductTable theadData={theadWarehouse} trow={findProducts(data, idWarehouse)} checkedAll={checkedAll}
+                              onChangeChecked={setCheckProduct}/>
             </div>
             {stepModal(step)}
         </div>
