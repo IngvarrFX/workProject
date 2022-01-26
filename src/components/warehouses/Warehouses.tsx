@@ -1,12 +1,13 @@
 import React, {useEffect, useMemo} from "react";
 import styles from "./Warehouses.module.css"
 import {BasicTable} from "../table/BaseTable";
-import {DataType} from "../../data"
+import {DataType, ProductType, WarehouseType} from "../../data"
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../store/store";
 import {setCheckedProductAC} from "../../store/actions/setCheckedProduct";
 import {setCheckedWarehouseAC} from "../../store/actions/setCheckWarehouse";
 import {Footer} from "../footer/Footer";
+import {removeWarehouses} from "../../store/actions/removeWarehouses";
 
 
 type WarehousesPropsType = {
@@ -26,12 +27,13 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
 
     const dispatch = useDispatch()
 
-    let chekedWarehousesItem = []
+    let chekedWarehousesItem:string[] = []
 
 
 
     const selectedItems = useMemo(() => {
-        chekedWarehousesItem = data.filter(warehouse => warehouse.selected)
+        let result = data.filter(warehouse => warehouse.selected)
+        chekedWarehousesItem = result.map((obj: WarehouseType) => obj.id);
         return chekedWarehousesItem.length
     }, [data])
 
@@ -45,7 +47,7 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
     }
 
     const deleteItem = () => {
-
+        dispatch(removeWarehouses(chekedWarehousesItem))
     }
 
 
@@ -68,7 +70,7 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
                 <BasicTable theadData={theadData} trow={data} chooseProduct={chooseProduct} checkedAll={checkedAll}
                             changeCheckedWarehouse={setCheckWarehouse}/>
             </div>
-            <Footer count={chekedWarehousesItem.length} deleteItem={deleteItem} moveItem={moveItem}/>
+            <Footer count={selectedItems} deleteItem={deleteItem} moveItem={moveItem}/>
         </div>
     );
 };

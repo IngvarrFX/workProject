@@ -1,6 +1,6 @@
 import React, {useMemo, useState} from "react";
 import styles from "./Warehouse.module.css"
-import {DataType, ShipmentMethodType} from "../../data"
+import {DataType, ProductType, ShipmentMethodType} from "../../data"
 import {ProductTable} from "../table/ProductTable";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../store/store";
@@ -15,6 +15,7 @@ import success from "../../assets/successImg2.svg"
 import {setCheckedProductAC} from "../../store/actions/setCheckedProduct";
 import {v1} from "uuid";
 import {Footer} from "../footer/Footer";
+import {removeProduct, RemoveProductType} from "../../store/actions/removeProduct";
 
 
 type WarehousePropsType = {
@@ -111,12 +112,13 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
         setSuccsessModal(false)
     }
 
-    let chekedProductsItem:any = []
+    let chekedProductsItem: string[] = []
 
 
     const selectedItems = useMemo(() => {
         const warehouse = data.filter(warehouse => warehouse.id === idWarehouse)[0]
-        chekedProductsItem = warehouse.products.filter(product => product.selected ? product.id : null )
+        let result:ProductType[] = warehouse.products.filter(product => product.selected)
+        chekedProductsItem = result.map((obj: ProductType) => obj.id);
         return chekedProductsItem.length
     }, [data])
 
@@ -126,6 +128,7 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
     }
 
     const deleteItem = () => {
+        dispatch(removeProduct(chekedProductsItem))
     }
 
     const disable = productName === "" || manufacturer === "" || itemNumber === ""

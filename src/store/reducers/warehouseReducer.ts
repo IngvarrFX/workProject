@@ -7,6 +7,8 @@ import {SetCheckedAllProductType} from "../actions/setCheckedAllProduct";
 import {SetUnCheckedAllProductType} from "../actions/setUncheckedAllProduct";
 import {SetCheckedProductType} from "../actions/setCheckedProduct";
 import {SetCheckedWarehouseType} from "../actions/setCheckWarehouse";
+import {RemoveWarehousesType} from "../actions/removeWarehouses";
+import {RemoveProductType} from "../actions/removeProduct";
 
 
 const initialState: DataType = [
@@ -248,7 +250,10 @@ export const WarehouseReducer = (state = initialState, action: ActionType): Data
             } : warehouse)
         }
         case "SET_CHECKED_WAREHOUSE": {
-            return state.map(warehouse => warehouse.id === action.idWarehouse ? {...warehouse, selected: action.value} : warehouse)
+            return state.map(warehouse => warehouse.id === action.idWarehouse ? {
+                ...warehouse,
+                selected: action.value
+            } : warehouse)
         }
         case "SET_CHECKED_PRODUCT": {
             const warehouse = state.filter(warehouse => warehouse.id === action.idWarehouse)[0]
@@ -256,7 +261,13 @@ export const WarehouseReducer = (state = initialState, action: ActionType): Data
                 ...product,
                 selected: action.value
             } : product)
-            return state.map(warehouse => warehouse.id === action.idWarehouse ? {...warehouse, products: checkProducts} : warehouse)
+            return state.map(warehouse => warehouse.id === action.idWarehouse ? {
+                ...warehouse,
+                products: checkProducts
+            } : warehouse)
+        }
+        case "REMOVE_WAREHOUSES":{
+            return state.filter(warehouse => !action.payload.includes(warehouse.id) )
         }
         default:
             return state
@@ -271,3 +282,5 @@ type ActionType = AddWarehouseType
     | SetUnCheckedAllProductType
     | SetCheckedProductType
     | SetCheckedWarehouseType
+    | RemoveWarehousesType
+|RemoveProductType
