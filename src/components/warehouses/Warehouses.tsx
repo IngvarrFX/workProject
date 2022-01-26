@@ -27,12 +27,9 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
     const dispatch = useDispatch()
 
     let chekedWarehousesItem = []
-    let chekedProductsItem = []
 
 
-    /*useEffect(() => {
-        chekedWarehousesItem = data.filter(warehouse => warehouse.selected)
-    }, [data])*/
+
     const selectedItems = useMemo(() => {
         chekedWarehousesItem = data.filter(warehouse => warehouse.selected)
         return chekedWarehousesItem.length
@@ -51,7 +48,6 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
 
     }
 
-    console.log(chekedWarehousesItem.length)
 
 
     return (
@@ -72,7 +68,7 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
                 <BasicTable theadData={theadData} trow={data} chooseProduct={chooseProduct} checkedAll={checkedAll}
                             changeCheckedWarehouse={setCheckWarehouse}/>
             </div>
-            <Footer count={selectedItems} deleteItem={deleteItem} moveItem={moveItem}/>
+            <Footer count={chekedWarehousesItem.length} deleteItem={deleteItem} moveItem={moveItem}/>
         </div>
     );
 };

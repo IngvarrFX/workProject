@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import styles from "./Warehouse.module.css"
 import {DataType, ShipmentMethodType} from "../../data"
 import {ProductTable} from "../table/ProductTable";
@@ -14,6 +14,7 @@ import {SuccsessModal} from "../modal/succsessModal/SuccsessModal";
 import success from "../../assets/successImg2.svg"
 import {setCheckedProductAC} from "../../store/actions/setCheckedProduct";
 import {v1} from "uuid";
+import {Footer} from "../footer/Footer";
 
 
 type WarehousePropsType = {
@@ -110,9 +111,27 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
         setSuccsessModal(false)
     }
 
+    let chekedProductsItem:any = []
+
+
+    const selectedItems = useMemo(() => {
+        const warehouse = data.filter(warehouse => warehouse.id === idWarehouse)[0]
+        chekedProductsItem = warehouse.products.filter(product => product.selected ? product.id : null )
+        return chekedProductsItem.length
+    }, [data])
+
+
+    const moveItem = () => {
+
+    }
+
+    const deleteItem = () => {
+    }
 
     const disable = productName === "" || manufacturer === "" || itemNumber === ""
 
+
+    console.log(chekedProductsItem)
     const stepModal = (step: number) => {
         switch (step) {
             case 1:
@@ -183,6 +202,7 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
                               onChangeChecked={setCheckProduct}/>
             </div>
             {stepModal(step)}
+            <Footer count={selectedItems} deleteItem={deleteItem} moveItem={moveItem}/>
         </div>
     );
 };
