@@ -2,7 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import {HorizontalStepper} from "../../../features/Stepper";
+import { Stepper} from "../../../features/stepper/Stepper";
 import {Title} from "../../title/Title";
 
 const style = {
@@ -45,8 +45,8 @@ export const AddProductModal: React.FC<AddProductModalPropsType> = ({isShow, set
             >
                 <Box sx={style}>
                     <Title title={title}/>
-                    <HorizontalStepper step={step}/>
-                 {/*   <Stepper activeStep={step} steps={[1,2,3]}/>*/}
+                    {/*<HorizontalStepper step={step}/>*/}
+                    <Stepper step={step}/>
                     <Typography id="modal-modal-title" variant="h6" component="h2"
                                 style={{display: "flex", flexDirection: "column", width: 300}}>
                         {children}

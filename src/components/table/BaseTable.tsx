@@ -33,7 +33,7 @@ export const BasicTable: React.FC<BasicTablePropsType> = ({theadData, trow, choo
                 <TableHead>
                     <TableRow>
                         {theadData.map((th, index) => th === "All stores" ?
-                            <TableCell style={styleCell} key={index}><input type={"checkbox"}
+                            <TableCell style={styleCell} key={index}><input  type={"checkbox"}
                                                                             onChange={(e) => checkedAll(e.currentTarget.checked)}/>{th}
                             </TableCell> :
                             <TableCell key={index}>{th}</TableCell>)}
@@ -47,7 +47,7 @@ export const BasicTable: React.FC<BasicTablePropsType> = ({theadData, trow, choo
                         >
 
                             <TableCell component="th" scope="row">
-                                <input checked={row.selected} onChange={(e)=>changeCheckedWarehouse(e.currentTarget.checked, row.id)} type={"checkbox"} style={{textAlign: "center"}}/>
+                                <input checked={row.selected} readOnly onChange={(e)=>changeCheckedWarehouse(e.currentTarget.checked, row.id)} type={"checkbox"} style={{textAlign: "center"}}/>
                                 <button className={styles.button}
                                         onClick={() => chooseProduct(row.id, row.title)}>{row.title}</button>
                             </TableCell>

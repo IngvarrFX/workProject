@@ -1,0 +1,22 @@
+.checkInput{
+    appearance: none;
+    position: absolute;
+}
+
+.checkbox{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-image: url("../../assets/unCheckbox.svg");
+    margin-left: -2em;
+
+}
+
+.checkInput:checked + .checkbox{
+    background-color: #EE950F;
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+.checkOption{
+    padding-left: 2em;
+}

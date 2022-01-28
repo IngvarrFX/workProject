@@ -1,7 +1,9 @@
-export const removeProduct = (payload: string[]) => ({type: "REMOVE_PRODUCT", payload})
+export const removeProduct = (ArrayId: string[], idWarehouse: string) => ({type: "REMOVE_PRODUCT", ArrayId, idWarehouse})
 
 
 export type RemoveProductType = {
     type: "REMOVE_PRODUCT"
-    payload: string[]
+    idWarehouse: string
+    ArrayId: string[]
 }
+

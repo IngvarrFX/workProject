@@ -35,4 +35,46 @@
     width: 28px;
 }
 
+.radio{
+    display: flex;
+    align-items: center;
+}
+
+.buttons{
+    display: flex;
+
+    margin-bottom: 48px;
+}
+
+
+.buttonsBlock{
+    display: flex;
+    align-items: center;
+}
+
+.check_input{
+    appearance: none;
+}
+.radio{
+    width: 28px;
+    height: 28px;
+    border: 1px solid #E6E8EA;
+    box-sizing: border-box;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.check_input:checked + .radio {
+    background-image: url("../../assets/checkedRadio.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.title{
+    margin-right: 8px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 14px;
+    color: rgba(62, 76, 89, 0.4);
+}
 

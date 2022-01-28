@@ -39,19 +39,21 @@ export const ShipingSelect: React.FC<RadioSelectProsType> = ({onChange}) => {
 
     return (
         <div>
-            <div className={styles.shipMethod} onClick={() => handleRadioChange("AIR")}>
-                <label className={styles.air}>{"By air transport"}</label>
-                <input className={styles.check_input} type={"checkbox"} checked={air}/>
+            <div className={styles.title}>Select delivery method</div>
+            <div style={{background: air ? "#FEF5E7" : "",}} className={styles.shipMethod}
+                 onClick={() => handleRadioChange("AIR")}>
+                <label style={{color: air ? "#EE950F" : ""}} className={styles.air}>{"By air transport"}</label>
+                <input className={styles.check_input} type={"checkbox"} checked={air} readOnly/>
                 <span className={styles.checkbox}></span>
             </div>
-            <div className={styles.shipMethod} onClick={() => handleRadioChange("SEA")}>
-                <label className={styles.ship}>{"By sea"}</label>
-                <input className={styles.check_input} type={"checkbox"} checked={sea}/>
+            <div style={{background: sea ? "#FEF5E7" : "",}}  className={styles.shipMethod} onClick={() => handleRadioChange("SEA")}>
+                <label style={{color: sea ? "#EE950F" : ""}}  className={styles.ship}>{"By sea"}</label>
+                <input className={styles.check_input} type={"checkbox"} checked={sea} readOnly/>
                 <span className={styles.checkbox}></span>
             </div>
-            <div className={styles.shipMethod} onClick={() => handleRadioChange("TRUCK")}>
-                <label className={styles.truck}>{"By car"}</label>
-                <input className={styles.check_input} type={"checkbox"} checked={car}/>
+            <div  style={{background: car ? "#FEF5E7" : "",}}  className={styles.shipMethod} onClick={() => handleRadioChange("TRUCK")}>
+                <label style={{color: car ? "#EE950F" : ""}}  className={styles.truck}>{"By car"}</label>
+                <input className={styles.check_input} type={"checkbox"} checked={car} readOnly/>
                 <span className={styles.checkbox}></span>
             </div>
 

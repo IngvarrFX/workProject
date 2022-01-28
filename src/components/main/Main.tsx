@@ -1,23 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {NavBar} from "../navBar/NavBar";
 import MainContainer from "../../common/style/MainContainer.module.css"
 import styles from "./Main.module.css"
 import {Warehouses} from "../warehouses/Warehouses";
 import {Warehouse} from "../warehouses/Warehouse";
 import {AddWarehouse} from "../../store/actions/addWarehouse";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {AddWarehouseModal} from "../modal/addWarehouseModal/AddWarehouseModal";
 import {Input} from "../input/Input";
-import success from "../../assets/successImg2.svg";
+import success from "../../assets/successWarehouse.svg";
 import {SuccsessModal} from "../modal/succsessModal/SuccsessModal";
 import {setCheckedWarehouses} from "../../store/actions/setChecked";
 import {setUncheckedWarehouses} from "../../store/actions/setUncheckedWarehouses";
 import {setCheckedAllProductAC} from "../../store/actions/setCheckedAllProduct";
 import {setUnCheckedAllProductAC} from "../../store/actions/setUncheckedAllProduct";
 import {v1} from "uuid";
-import {Footer} from "../footer/Footer";
-import {AppStateType} from "../../store/store";
-import {DataType} from "../../data";
 
 
 export const Main = () => {
@@ -37,7 +34,7 @@ export const Main = () => {
     const dispatch = useDispatch()
 
     const [showInput, setShowInput] = useState(false)
-    const [showProductModal, setShowProductModal] = useState(false)
+    //const [showProductModal, setShowProductModal] = useState(false)
     const [name, setName] = useState("")
     const [lenght, setLenght] = useState("")
     const [width, setWidth] = useState("")
@@ -63,12 +60,12 @@ export const Main = () => {
         dispatch(setUnCheckedAllProductAC(idWarehouse))
     }
 
-    const addProduct = () => {
+   /* const addProduct = () => {
         setName("")
         setLenght("")
         setWidth("")
         setHeight("")
-    }
+    }*/
 
     const showAddWarehoseModal = () => {
         setShowInput(true)
@@ -82,7 +79,16 @@ export const Main = () => {
         setWidth("")
         setHeight("")
         setStep(s => s + 1)
+        setSuccsessModal(true)
     }
+
+    const closeCreateWarehouseModal = () => {
+        setStep(0)
+        setShowInput(false)
+    }
+
+
+
     const closeSuccessModal = () => {
         setStep(0)
         setSuccsessModal(false)
@@ -90,13 +96,13 @@ export const Main = () => {
 
 
 
-    const disable = name == "" || lenght == "" || width == "" || height == ""
+    const disable = name === "" || lenght === "" || width === "" || height === ""
 
 
     const stepModalWarehouses = (step: number) => {
         switch (step) {
             case 1:
-                return <AddWarehouseModal isShow={showInput} setIsShow={() => setShowInput(false)}>
+                return <AddWarehouseModal isShow={showInput} setIsShow={closeCreateWarehouseModal}>
                     <div style={{display: "flex", flexDirection: "column", width: 100}}>
                         <Input value={name} setValue={(value) => setName(value)}
                                placeholder={"Enter a name"} label={"Name of the warehouse"}/>
@@ -115,8 +121,8 @@ export const Main = () => {
             case 2:
                 return <SuccsessModal isOpen={succsessModal} toggleMode={() => setSuccsessModal(false)}>
                     <img className={styles.img} src={success}/>
-                    <span className={styles.successTitle}>The cargo was successfully created</span>
-                    <button className={styles.nextBtn} onClick={closeSuccessModal}>Continue
+                    <span className={styles.successTitle}>Warehouse successfully added</span>
+                    <button className={styles.addButton} onClick={closeSuccessModal}>Continue
                     </button>
                 </SuccsessModal>
             default:
@@ -147,7 +153,7 @@ export const Main = () => {
                         </div>
                         {stepModalWarehouses(step)}
                         <div className={styles.contentBlock}>
-                            {idWarehouse == ""
+                            {idWarehouse === ""
                                 ?
                                 <Warehouses title={"Warehouses"} chooseProduct={openProductTableHandle}
                                             isShowModal={showAddWarehoseModal}
@@ -161,14 +167,6 @@ export const Main = () => {
                         </div>
                     </div>
                 </div>
-                {/*{ chekedWarehousesItem.length
-                    ?
-                    <div className={styles.footer}>
-                        <Footer count={2} moveItem={moveItem} deleteItem={deleteItem}/>
-                    </div>
-                    :
-                    false
-                }*/}
             </div>
         </div>
     );

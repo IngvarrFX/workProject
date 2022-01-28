@@ -3,22 +3,23 @@ import styles from "./Footer.module.css"
 
 
 type FooterPropsType = {
-    count: number
+    /*count: number
     moveItem: () => void
-    deleteItem: () => void
-
+    deleteItem: () => void*/
+    children:React.ReactNode
 }
 
-export const Footer: React.FC<FooterPropsType> = ({count, deleteItem, moveItem}) => {
+export const Footer: React.FC<FooterPropsType> = ({children}) => {
     return (
         <div className={styles.footerWrapper}>
-            <div className={styles.countSelect}>
+          {/*  <div className={styles.countSelect}>
                 Selected: {count}
             </div>
             <div className={styles.btn}>
                 <button onClick={deleteItem} className={styles.deleteBtn}>Delete</button>
                 <button onClick={moveItem} className={styles.moveBtn}>Move</button>
-            </div>
+            </div>*/}
+            {children}
         </div>
     );
 };

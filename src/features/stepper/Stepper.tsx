@@ -1,18 +1,22 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-//import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import {Stepper} from "@mui/material";
+import React from "react";
+import styles from "./Stepper.module.css"
 
-const steps = [
-    "1",
-    "2",
-    "3",
-];
 
-type HorizontalStepperPropsType = {
+type StepperPropsType = {
     step: number
+}
+
+
+export const Stepper: React.FC<StepperPropsType> = ({step}) => {
+    return <div className={styles.stepper}>
+        <div className={styles.stepperStep}>
+            <div className={styles.stepperIndicator}>
+                <span style={{backgroundColor: step === 1 ? "#EE950F" : ""}} className={styles.stepperInfo}>1</span>
+                <span style={{backgroundColor: step === 2 ? "#EE950F" : ""}} className={styles.stepperInfo}>2</span>
+                <span style={{backgroundColor: step === 3 ? "#EE950F" : ""}} className={styles.stepperInfo}>3</span>
+            </div>
+        </div>
+    </div>
 }
 
 /*type StepperPropsType = {
@@ -46,7 +50,7 @@ export const Stepper:React.FC<StepperPropsType> = ({ steps = [], activeStep = 1 
     return <ol className="progress">{stepsList}</ol>;
 }*/
 
-export const HorizontalStepper:React.FC<HorizontalStepperPropsType> = ({step}) => {
+/*export const HorizontalStepper:React.FC<HorizontalStepperPropsType> = ({step}) => {
     return (
         <Box sx={{ width: '50%'}}>
             <Stepper activeStep={step} alternativeLabel  style={{color: "#EE950F"}}>
@@ -58,4 +62,4 @@ export const HorizontalStepper:React.FC<HorizontalStepperPropsType> = ({step}) =
             </Stepper>
         </Box>
     );
-}
+}*/

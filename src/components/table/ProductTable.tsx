@@ -8,7 +8,6 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import {ProductType, WarehouseType} from "../../data";
 import styles from "./ProductTable.module.css"
-import {useDispatch} from "react-redux";
 
 
 type ProductTablePropsType = {
@@ -20,7 +19,6 @@ type ProductTablePropsType = {
 
 
 export const ProductTable: React.FC<ProductTablePropsType> = ({theadData, trow, checkedAll, onChangeChecked}) => {
-    const dispatch = useDispatch()
 
 
     return (
@@ -29,7 +27,8 @@ export const ProductTable: React.FC<ProductTablePropsType> = ({theadData, trow, 
                 <TableHead>
                     <TableRow>
                         {theadData.map((th, index) => th === "All products" ?
-                            <TableCell key={index}><input type="checkbox"
+                            <TableCell key={index}>
+                                <input type="checkbox" readOnly
                                                           onChange={(e) => checkedAll(e.currentTarget.checked)}/>{th}
                             </TableCell> : <TableCell key={index}>{th}</TableCell>)}
                     </TableRow>
@@ -42,7 +41,7 @@ export const ProductTable: React.FC<ProductTablePropsType> = ({theadData, trow, 
                             sx={{"&:last-child td, &:last-child th": {border: 0}}}
                         >
                             <TableCell component="th" scope="row">
-                                <input type="checkbox" checked={row.selected}
+                                <input type="checkbox" checked={row.selected} readOnly
                                        onChange={(e) => onChangeChecked(e.currentTarget.checked, row.id)}/>
                                 {row.productName}
                             </TableCell>

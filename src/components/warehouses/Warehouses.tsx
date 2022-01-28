@@ -1,13 +1,14 @@
-import React, {useEffect, useMemo} from "react";
+import React, {useMemo} from "react";
 import styles from "./Warehouses.module.css"
 import {BasicTable} from "../table/BaseTable";
-import {DataType, ProductType, WarehouseType} from "../../data"
+import {DataType, WarehouseType} from "../../data"
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../store/store";
-import {setCheckedProductAC} from "../../store/actions/setCheckedProduct";
 import {setCheckedWarehouseAC} from "../../store/actions/setCheckWarehouse";
 import {Footer} from "../footer/Footer";
 import {removeWarehouses} from "../../store/actions/removeWarehouses";
+
+
 
 
 type WarehousesPropsType = {
@@ -16,6 +17,7 @@ type WarehousesPropsType = {
     isShowModal: () => void
     checkedAll: (value: boolean) => void
 }
+
 
 
 export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct, isShowModal, checkedAll}) => {
@@ -27,8 +29,7 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
 
     const dispatch = useDispatch()
 
-    let chekedWarehousesItem:string[] = []
-
+    let chekedWarehousesItem: string[] = []
 
 
     const selectedItems = useMemo(() => {
@@ -42,14 +43,18 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
         dispatch(setCheckedWarehouseAC(value, warehouseId))
     }
 
-    const moveItem = () => {
+    const editWarehouse = () => {
 
     }
 
     const deleteItem = () => {
+        checkedAll(false)
         dispatch(removeWarehouses(chekedWarehousesItem))
     }
 
+    const footerStyle = {
+        transition: "1s",
+    }
 
 
     return (
@@ -62,7 +67,7 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
                         <option>Chocklate</option>
                         <option>Pancakes</option>
                     </select>
-                    <button className={styles.addButton} onClick={isShowModal}>Add a warehouse +</button>
+                    <button className={styles.addButton} onClick={isShowModal} disabled={chekedWarehousesItem.length !== 0}>Add a warehouse +</button>
                 </div>
             </div>
 
@@ -70,7 +75,21 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
                 <BasicTable theadData={theadData} trow={data} chooseProduct={chooseProduct} checkedAll={checkedAll}
                             changeCheckedWarehouse={setCheckWarehouse}/>
             </div>
-            <Footer count={selectedItems} deleteItem={deleteItem} moveItem={moveItem}/>
+            <div style={footerStyle}>
+                {chekedWarehousesItem.length
+                    ?
+                    <Footer >
+                        <div className={styles.countSelect}>
+                            Selected: {selectedItems}
+                        </div>
+                        <div className={styles.btn}>
+                            <button onClick={deleteItem} className={styles.deleteBtn}>Delete</button>
+                        </div>
+                    </Footer>
+                    : false
+                }
+            </div>
+
         </div>
     );
 };

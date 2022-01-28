@@ -6,12 +6,14 @@ type RadioButtonPropsType = {
     onChange: (value: "A" | "S" | "D" | "F") => void
 }
 
+const buttons: ["A", "S", "D", "F"] = ["A", "S", "D", "F"]
+
 export const RadioButton: React.FC<RadioButtonPropsType> = ({onChange}) => {
 
-    const [A, setA] = React.useState(true);
-    const [S, setS] = React.useState(false);
-    const [D, setD] = React.useState(false);
-    const [F, setF] = React.useState(false);
+    const [a, setA] = React.useState(true);
+    const [s, setS] = React.useState(false);
+    const [d, setD] = React.useState(false);
+    const [f, setF] = React.useState(false);
 
 
     const handleRadioChange = (value: string) => {
@@ -46,7 +48,7 @@ export const RadioButton: React.FC<RadioButtonPropsType> = ({onChange}) => {
     };
 
 
-    return (
+    /*return (
         <div className={styles.block}>
             <label className={styles.labelRadio}>Purchasing technology</label>
             <div className={styles.radioBtn}>
@@ -70,28 +72,37 @@ export const RadioButton: React.FC<RadioButtonPropsType> = ({onChange}) => {
 
         </div>
 
+    );*/
+
+    return (
+        <div className={styles.buttons}>
+            <div className={styles.buttonsBlock} onClick={() => handleRadioChange("A")}>
+                <div style={{color: a ? "#3E4C59" : ""}} className={styles.title}>{"A"}</div>
+                <input className={styles.check_input} type={"checkbox"} checked={a} readOnly/>
+                <span className={styles.radio}></span>
+            </div>
+            <div className={styles.buttonsBlock} onClick={() => handleRadioChange("S")}>
+                <div style={{color: s ? "#3E4C59" : ""}}  className={styles.title}>{"S"}</div>
+                <input className={styles.check_input} type={"checkbox"} checked={s} readOnly/>
+                <span className={styles.radio}></span>
+            </div>
+            <div className={styles.buttonsBlock} onClick={() => handleRadioChange("D")}>
+                <div style={{color: d ? "#3E4C59" : ""}}  className={styles.title}>{"D"}</div>
+                <input className={styles.check_input} type={"checkbox"} checked={d} readOnly/>
+                <span className={styles.radio}></span>
+            </div>
+            <div className={styles.buttonsBlock} onClick={() => handleRadioChange("F")}>
+                <div style={{color: f ? "#3E4C59" : ""}}  className={styles.title}>{"F"}</div>
+                <input className={styles.check_input} type={"checkbox"} checked={f} readOnly/>
+                <span className={styles.radio}></span>
+            </div>
+        </div>
+
     );
+
 };
 
-/*export const RowRadioButtonsGroup = () => {
-    return (
-        <FormControl>
-            <FormLabel id="demo-row-radio-buttons-group-label">Purchasing technology</FormLabel>
-            <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                defaultValue="A"
-                name="row-radio-buttons-group"
-            >
 
-                <div className={styles.radio}>
-                   A
-                    <input className={styles.radioBtn} type="radio" value="A" name="gender"/> S
-                    <input className={styles.radioBtn} type="radio" value="S" name="gender"/> D
-                    <input className={styles.radioBtn} type="radio" value="D" name="gender"/> F
-                    <input className={styles.radioBtn} type="radio" value="F" name="gender"/>
-                </div>
-            </RadioGroup>
-        </FormControl>
-    );
-}*/
+
+
+

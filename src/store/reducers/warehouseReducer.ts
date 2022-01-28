@@ -9,6 +9,7 @@ import {SetCheckedProductType} from "../actions/setCheckedProduct";
 import {SetCheckedWarehouseType} from "../actions/setCheckWarehouse";
 import {RemoveWarehousesType} from "../actions/removeWarehouses";
 import {RemoveProductType} from "../actions/removeProduct";
+import {MoveProductType} from "../actions/moveProducts";
 
 
 const initialState: DataType = [
@@ -77,7 +78,7 @@ const initialState: DataType = [
         ]
     },
     {
-        id: "2",
+        id: "555",
         title: "Warehouse No. 2",
         length: "69",
         width: "24",
@@ -220,7 +221,7 @@ export const WarehouseReducer = (state = initialState, action: ActionType): Data
                     productName: action.data.productName,
                     manufacturer: action.data.manufacturer,
                     itemNumber: action.data.itemNumber,
-                    purchasingTechnology: action.data.payMethod,
+                    purchasingTechnology: action.data.purchasing,
                     shipmentMethod: action.data.shipMethod,
                     selected: false,
                 }]
@@ -266,8 +267,26 @@ export const WarehouseReducer = (state = initialState, action: ActionType): Data
                 products: checkProducts
             } : warehouse)
         }
-        case "REMOVE_WAREHOUSES":{
-            return state.filter(warehouse => !action.payload.includes(warehouse.id) )
+        case "REMOVE_WAREHOUSES": {
+            return state.filter(warehouse => !action.payload.includes(warehouse.id))
+        }
+        case "REMOVE_PRODUCT": {
+            const warehouse = state.filter(warehouse => warehouse.id === action.idWarehouse)[0]
+            const products = warehouse.products.filter(product => !action.ArrayId.includes(product.id))
+            warehouse.products = products
+            return [...state, warehouse]
+        }
+        case "MOVE_PRODUCT":{
+            let copyState = [...state]
+            let fromWarehouse = copyState.filter(warehouse => warehouse.id === action.payload.fromId)[0]
+            let products = fromWarehouse.products.filter(product => product.selected)
+            fromWarehouse.products = fromWarehouse.products.filter(product => !product.selected)
+            products = products.map(product => ({...product, selected: false }))
+            const inWarehouse = copyState.filter(warehouse => warehouse.id === action.payload.inId)[0]
+            inWarehouse.products = [...inWarehouse.products, ...products]
+            copyState.map(warehouse => warehouse.id === fromWarehouse.id ? fromWarehouse : warehouse)
+            copyState.map(warehouse => warehouse.id === inWarehouse.id ? inWarehouse : warehouse)
+            return copyState
         }
         default:
             return state
@@ -283,4 +302,5 @@ type ActionType = AddWarehouseType
     | SetCheckedProductType
     | SetCheckedWarehouseType
     | RemoveWarehousesType
-|RemoveProductType
+    | RemoveProductType
+    | MoveProductType

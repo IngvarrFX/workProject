@@ -1,6 +1,6 @@
 import React, {useMemo, useState} from "react";
 import styles from "./Warehouse.module.css"
-import {DataType, ProductType, ShipmentMethodType} from "../../data"
+import {DataType, ProductType, ShipmentMethodType, WarehouseType} from "../../data"
 import {ProductTable} from "../table/ProductTable";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../store/store";
@@ -15,7 +15,9 @@ import success from "../../assets/successImg2.svg"
 import {setCheckedProductAC} from "../../store/actions/setCheckedProduct";
 import {v1} from "uuid";
 import {Footer} from "../footer/Footer";
-import {removeProduct, RemoveProductType} from "../../store/actions/removeProduct";
+import {removeProduct} from "../../store/actions/removeProduct";
+import {ModalSelect} from "../modalSelect/ModalSelect";
+import {moveProducts} from "../../store/actions/moveProducts";
 
 
 type WarehousePropsType = {
@@ -30,14 +32,19 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
 
 
     const [isShowAddProductModal, setIsShowAddProductModal] = React.useState(false)
+    const [isShowMoveProductModal, setIsShowMoveProductModal] = React.useState(false)
+
     const [succsessModal, setSuccsessModal] = React.useState(false)
 
     const [step, setStep] = useState(0)
+
 
     const [productName, setProductName] = React.useState("");
     const [manufacturer, setManufacturer] = React.useState("");
     const [itemNumber, setItemNumber] = React.useState("");
     const [purchasing, setPurchasing] = React.useState<"A" | "S" | "D" | "F">("A");
+
+    const [selected, setSelected] = React.useState("")
 
 
     const [payMethod, setPayMethod] = useState<"card" | "paypal" | "cash">("card")
@@ -45,10 +52,15 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
 
 
     const data = useSelector<AppStateType, DataType>(state => state.warehouses)
+    const warehouse = useSelector<AppStateType, WarehouseType>(state => state.warehouses.filter(wareshouse => wareshouse.id === idWarehouse)[0])
+    const warehouses = useSelector<AppStateType, WarehouseType[]>(state => state.warehouses.filter(wareshouse => wareshouse.id !== idWarehouse))
     const theadWarehouse: Array<string> = ["All products", "Manufacturer", "Item number", "Purchasing technology", "Shipment method"]
 
 
     const dispatch = useDispatch()
+
+
+    let chekedProductsItem: string[] = []
 
     const findProducts = (data: DataType, id: string) => {
         return data.filter(warehouse => warehouse.id === id ? warehouse.products : "")
@@ -66,6 +78,12 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
         setShipMethod("AIR")
     }
 
+    const closeMoveModal = () => {
+        setIsShowMoveProductModal(false)
+        setStep(0)
+        checkedAll(false)
+    }
+
 
     const isShowProductModal = () => {
         setIsShowAddProductModal(true)
@@ -80,7 +98,6 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
     }
 
     const createProduct = () => {
-
         dispatch(AddProduct({
             warehouseId: idWarehouse,
             id: v1(),
@@ -90,7 +107,6 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
             itemNumber,
             manufacturer,
             purchasing,
-
         }))
         setProductName("")
         setManufacturer("")
@@ -107,35 +123,50 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
         dispatch(setCheckedProductAC(value, productId, idWarehouse))
     }
 
+
     const closeSuccessModal = () => {
         setStep(0)
         setSuccsessModal(false)
+        setIsShowAddProductModal(false)
+        setIsShowMoveProductModal(false)
+        chekedProductsItem = []
     }
-
-    let chekedProductsItem: string[] = []
 
 
     const selectedItems = useMemo(() => {
         const warehouse = data.filter(warehouse => warehouse.id === idWarehouse)[0]
-        let result:ProductType[] = warehouse.products.filter(product => product.selected)
+        let result: ProductType[] = warehouse.products.filter(product => product.selected)
         chekedProductsItem = result.map((obj: ProductType) => obj.id);
         return chekedProductsItem.length
     }, [data])
 
 
-    const moveItem = () => {
-
+    const moveItemModal = () => {
+        setIsShowMoveProductModal(true)
+        setStep(s => s + 1)
     }
 
+    const moveItem = () => {
+        checkedAll(false)
+        setStep(s => s + 1)
+        dispatch(moveProducts({
+                fromId: idWarehouse,
+                inId: selected,
+                shipMethod,
+                payMethod,
+            }
+        ))
+    }
+
+
     const deleteItem = () => {
-        dispatch(removeProduct(chekedProductsItem))
+        dispatch(removeProduct(chekedProductsItem, idWarehouse))
     }
 
     const disable = productName === "" || manufacturer === "" || itemNumber === ""
 
 
-    console.log(chekedProductsItem)
-    const stepModal = (step: number) => {
+    const stepCreateProductModal = (step: number) => {
         switch (step) {
             case 1:
                 return <AddProductModal isShow={isShowAddProductModal} setIsShow={isCloseProductModale}
@@ -186,6 +217,55 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
     }
 
 
+    const stepMoveProductModal = (step: number) => {
+        switch (step) {
+            case 1:
+                return <AddProductModal isShow={isShowMoveProductModal} setIsShow={closeMoveModal}
+                                        nextStep={nextStep}
+                                        title={"Move cargo"}
+                                        step={step}>
+
+                    <Input label={"From"} value={warehouse.title} setValue={() => {
+                    }} placeholder={""}/>
+                    <div className={styles.img}></div>
+                    <ModalSelect warehouses={warehouses} selected={selected} setSelected={setSelected}/>
+                    <button className={styles.nextBtn}
+                            onClick={nextStep}>Next step
+                    </button>
+                </AddProductModal>;
+
+            case 2:
+                return <AddProductModal isShow={isShowMoveProductModal} setIsShow={() => {
+                }}
+                                        nextStep={nextStep}
+                                        step={step} title={"Shipping method"}>
+                    <ShipingSelect onChange={(value) => setShipMethod(value)}/>
+                    <button className={styles.nextBtn} onClick={nextStep}>Next step</button>
+                </AddProductModal>;
+            case 3:
+                return <AddProductModal isShow={isShowMoveProductModal} setIsShow={() => {
+                }}
+                                        nextStep={nextStep}
+                                        step={step}
+                                        title={"Payment method"}
+                >
+                    <PayingSelect onChange={(value) => setPayMethod(value)}/>
+                    <button className={styles.nextBtn} onClick={moveItem}>Choose
+                    </button>
+                </AddProductModal>;
+            case 4:
+                return <SuccsessModal isOpen={succsessModal} toggleMode={() => setSuccsessModal(false)}>
+                    <img className={styles.img} src={success}/>
+                    <span className={styles.successTitle}>Cargo was successfully moved </span>
+                    <button className={styles.nextBtn} onClick={closeSuccessModal}>Continue
+                    </button>
+                </SuccsessModal>
+            default:
+                return false
+        }
+    }
+
+
     return (
         <div>
             <div className={styles.header}>
@@ -196,7 +276,8 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
                         <option>Chocklate</option>
                         <option>Pancakes</option>
                     </select>
-                    <button className={styles.addButton} onClick={isShowProductModal}>Add cargo +
+                    <button className={styles.addButton} disabled={chekedProductsItem.length !== 0}
+                            onClick={isShowProductModal}>Add cargo +
                     </button>
                 </div>
             </div>
@@ -204,8 +285,25 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
                 <ProductTable theadData={theadWarehouse} trow={findProducts(data, idWarehouse)} checkedAll={checkedAll}
                               onChangeChecked={setCheckProduct}/>
             </div>
-            {stepModal(step)}
-            <Footer count={selectedItems} deleteItem={deleteItem} moveItem={moveItem}/>
+            <div>
+                {stepCreateProductModal(step)}
+                {stepMoveProductModal(step)}
+            </div>
+            <div>
+                {chekedProductsItem.length !== 0
+                    ?
+                    <Footer>
+                        <div className={styles.countSelect}>
+                            Selected: {selectedItems}
+                        </div>
+                        <div className={styles.btn}>
+                            <button onClick={deleteItem} className={styles.deleteBtn}>Delete</button>
+                            <button onClick={moveItemModal} className={styles.moveBtn}>Move</button>
+                        </div>
+                    </Footer>
+                    : false
+                }
+            </div>
         </div>
     );
 };

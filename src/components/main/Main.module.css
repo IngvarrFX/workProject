@@ -87,6 +87,25 @@
     color: #FFFFFF;
     margin-top: 10px;
     margin-bottom: 60px;
+    cursor: pointer;
+}
+
+
+.img{
+    margin-bottom: 56px;
+    margin-top: 50px;
+}
+
+
+.successTitle{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 36px;
+    color: #3E4C59;
+    width: 370px;
+    text-align: center;
+    margin-bottom: 48px;
 }
 
 .footer{
