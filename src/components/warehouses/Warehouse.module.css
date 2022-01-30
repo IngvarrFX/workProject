@@ -87,9 +87,19 @@
     margin-bottom: 48px;
 }
 
+.imgBlock{
+    display: flex;
+    margin-top: -50px;
+    margin-bottom: -40px;
+    justify-content: center;
+}
+
 .img{
     margin-bottom: 56px;
     margin-top: 50px;
+    background: url("../../assets/arrows.svg");
+    width: 20px;
+    height: 15px;
 }
 
 

@@ -24,6 +24,7 @@ export const ModalSelect: React.FC<ModalSelectPropsType> = ({warehouses, setSele
     return (
         <div>
             <div className={styles.customSelect}>
+                <div className={styles.label}>In</div>
                 <div className={styles.dropDown}>
                     <div style={{color: selected ? "#3E4C59" : ""}} className={styles.dropDownBtn} onClick={() => setIsActive(!isActive)}>{selected ? selectWarehouse.title : "Select a warehouse"}</div>
                     {isActive

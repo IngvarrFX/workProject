@@ -43,3 +43,19 @@
     background: #F7F9FC;
     color: #3E4C59;
 }
+
+
+body::-webkit-scrollbar {
+    width: 1em;
+}
+
+
+.label{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 12px;
+    color: #3E4C59;
+    margin-bottom: 8px;
+}
+

@@ -25,10 +25,11 @@ type WarehousePropsType = {
     idWarehouse: string
     isShowModal: () => void
     checkedAll: (value: boolean) => void
+    value: boolean
 }
 
 
-export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isShowModal, checkedAll}) => {
+export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isShowModal, checkedAll, value}) => {
 
 
     const [isShowAddProductModal, setIsShowAddProductModal] = React.useState(false)
@@ -169,16 +170,27 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
     const stepCreateProductModal = (step: number) => {
         switch (step) {
             case 1:
-                return <AddProductModal isShow={isShowAddProductModal} setIsShow={isCloseProductModale}
-                                        nextStep={nextStep}
-                                        title={"Adding a product"}
-                                        step={step}>
-                    <Input label={"Product name"} placeholder={"Enter a name"} value={productName}
-                           setValue={(value) => setProductName(value)}/>
-                    <Input label={"Manufacturer"} placeholder={"Enter a name"} value={manufacturer}
-                           setValue={(value) => setManufacturer(value)}/>
-                    <Input label={"Item number"} placeholder={"Enter the number"} value={itemNumber}
-                           setValue={(value) => setItemNumber(value)}/>
+                return <AddProductModal
+                    isShow={isShowAddProductModal}
+                    setIsShow={isCloseProductModale}
+                    nextStep={nextStep}
+                    title={"Adding a product"}
+                    step={step}>
+                    <Input
+                        label={"Product name"}
+                        placeholder={"Enter a name"}
+                        value={productName}
+                        setValue={(value) => setProductName(value)}/>
+                    <Input
+                        label={"Manufacturer"}
+                        placeholder={"Enter a name"}
+                        value={manufacturer}
+                        setValue={(value) => setManufacturer(value)}/>
+                    <Input
+                        label={"Item number"}
+                        placeholder={"Enter the number"}
+                        value={itemNumber}
+                        setValue={(value) => setItemNumber(value)}/>
                     <RadioButton onChange={(value) => setPurchasing(value)}/>
                     <button className={styles.nextBtn}
                             style={{backgroundColor: disable ? "#E6E8EA" : ""}}
@@ -188,11 +200,17 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
                 </AddProductModal>;
 
             case 2:
-                return <AddProductModal isShow={isShowAddProductModal} setIsShow={isCloseProductModale}
-                                        nextStep={nextStep}
-                                        step={step} title={"Shipping method"}>
+                return <AddProductModal
+                    isShow={isShowAddProductModal}
+                    setIsShow={isCloseProductModale}
+                    nextStep={nextStep}
+                    step={step}
+                    title={"Shipping method"}>
                     <ShipingSelect onChange={(value) => setShipMethod(value)}/>
-                    <button className={styles.nextBtn} onClick={nextStep}>Next</button>
+                    <button
+                        className={styles.nextBtn}
+                        onClick={nextStep}>Next
+                    </button>
                 </AddProductModal>;
             case 3:
                 return <AddProductModal isShow={isShowAddProductModal} setIsShow={isCloseProductModale}
@@ -225,9 +243,15 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
                                         title={"Move cargo"}
                                         step={step}>
 
-                    <Input label={"From"} value={warehouse.title} setValue={() => {
-                    }} placeholder={""}/>
-                    <div className={styles.img}></div>
+                    <Input
+                        label={"From"}
+                        value={warehouse.title}
+                        setValue={() => {
+                        }}
+                        placeholder={""}/>
+                    <div className={styles.imgBlock}>
+                        <div className={styles.img}></div>
+                    </div>
                     <ModalSelect warehouses={warehouses} selected={selected} setSelected={setSelected}/>
                     <button className={styles.nextBtn}
                             onClick={nextStep}>Next step
@@ -271,7 +295,8 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
             <div className={styles.header}>
                 <div className={styles.title}>{title}</div>
                 <div className={styles.control}>
-                    <select defaultValue={"Filter by"} className={styles.select}>
+                    <select className={styles.select}>
+                        <option selected>Filter by</option>
                         <option>Apples</option>
                         <option>Chocklate</option>
                         <option>Pancakes</option>
@@ -282,8 +307,13 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
                 </div>
             </div>
             <div className={styles.table}>
-                <ProductTable theadData={theadWarehouse} trow={findProducts(data, idWarehouse)} checkedAll={checkedAll}
-                              onChangeChecked={setCheckProduct}/>
+                <ProductTable
+                    theadData={theadWarehouse}
+                    trow={findProducts(data, idWarehouse)}
+                    checkedAll={checkedAll}
+                    onChangeChecked={setCheckProduct}
+                    value={value}
+                />
             </div>
             <div>
                 {stepCreateProductModal(step)}

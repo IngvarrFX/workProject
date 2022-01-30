@@ -1,22 +1,23 @@
 import React from "react";
+
+import {ReactComponent as CheckedSVG} from "../../assets/checkedArrow.svg";
+
 import styles from "./CustomCheckbox.module.css"
 
 
 type CustomCheckboxPropsType = {
-    onChangeChecked: (value: boolean) => void
-    lable?: string
+    onChangeChecked: (value: boolean, id?: string) => void
+    value: boolean
 }
 
-export const CustomCheckbox: React.FC<CustomCheckboxPropsType> = ({onChangeChecked, lable}) => {
+export const CustomCheckbox: React.FC<CustomCheckboxPropsType> = ({onChangeChecked, value}) => {
+
     return (
-        <div>
-            <label className={styles.checkOption}>
-                <input className={styles.checkInput}
-                       onChange={(e) => onChangeChecked(e.currentTarget.checked)} type="checkbox"/>
-                <span className={styles.checkbox}></span>
-                {lable}
-            </label>
+        <div className={value ? styles.checked : styles.checkbox} onClick={() => onChangeChecked(!value)}>
+            {value && <CheckedSVG/>}
         </div>
     );
 };
 
+
+/*[`checkbox ${value ? "checked": ""}`]*/

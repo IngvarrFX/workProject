@@ -16,11 +16,12 @@ type WarehousesPropsType = {
     chooseProduct: (id: string, title: string) => void
     isShowModal: () => void
     checkedAll: (value: boolean) => void
+    value: boolean
 }
 
 
 
-export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct, isShowModal, checkedAll}) => {
+export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct, isShowModal, checkedAll, value}) => {
 
     const data = useSelector<AppStateType, DataType>(state => state.warehouses)
     const theadData: Array<string> = ["All stores", "Number of products", "Length, m", "Width, m", "Height, m"]
@@ -62,7 +63,8 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
             <div className={styles.header}>
                 <div className={styles.title}>{title}</div>
                 <div className={styles.control}>
-                    <select defaultValue={"Filter by"} className={styles.select}>
+                    <select className={styles.select}>
+                        <option selected>Filter by</option>
                         <option>Apples</option>
                         <option>Chocklate</option>
                         <option>Pancakes</option>
@@ -73,7 +75,9 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
 
             <div className={styles.table}>
                 <BasicTable theadData={theadData} trow={data} chooseProduct={chooseProduct} checkedAll={checkedAll}
-                            changeCheckedWarehouse={setCheckWarehouse}/>
+                            changeCheckedWarehouse={setCheckWarehouse}
+                            value={value}
+                />
             </div>
             <div style={footerStyle}>
                 {chekedWarehousesItem.length

@@ -8,6 +8,7 @@ import {AddWarehouse} from "../../store/actions/addWarehouse";
 import {useDispatch} from "react-redux";
 import {AddWarehouseModal} from "../modal/addWarehouseModal/AddWarehouseModal";
 import {Input} from "../input/Input";
+import {Routes, Route} from "react-router-dom"
 import success from "../../assets/successWarehouse.svg";
 import {SuccsessModal} from "../modal/succsessModal/SuccsessModal";
 import {setCheckedWarehouses} from "../../store/actions/setChecked";
@@ -15,6 +16,11 @@ import {setUncheckedWarehouses} from "../../store/actions/setUncheckedWarehouses
 import {setCheckedAllProductAC} from "../../store/actions/setCheckedAllProduct";
 import {setUnCheckedAllProductAC} from "../../store/actions/setUncheckedAllProduct";
 import {v1} from "uuid";
+import {Home} from "../home/Home";
+import {Account} from "../account/Account";
+import {Cards} from "../cards/Cards";
+import {Contacts} from "../contacts/Contacts";
+import {Chat} from "../chat/Chat";
 
 
 export const Main = () => {
@@ -28,7 +34,6 @@ export const Main = () => {
     const [checkedAll, setCheckedAll] = useState(false)
     const [checkedAllProduct, setCheckedAllProduct] = useState(false)
     const [succsessModal, setSuccsessModal] = React.useState(false)
-
 
 
     const dispatch = useDispatch()
@@ -60,12 +65,12 @@ export const Main = () => {
         dispatch(setUnCheckedAllProductAC(idWarehouse))
     }
 
-   /* const addProduct = () => {
-        setName("")
-        setLenght("")
-        setWidth("")
-        setHeight("")
-    }*/
+    /* const addProduct = () => {
+         setName("")
+         setLenght("")
+         setWidth("")
+         setHeight("")
+     }*/
 
     const showAddWarehoseModal = () => {
         setShowInput(true)
@@ -88,12 +93,10 @@ export const Main = () => {
     }
 
 
-
     const closeSuccessModal = () => {
         setStep(0)
         setSuccsessModal(false)
     }
-
 
 
     const disable = name === "" || lenght === "" || width === "" || height === ""
@@ -153,17 +156,39 @@ export const Main = () => {
                         </div>
                         {stepModalWarehouses(step)}
                         <div className={styles.contentBlock}>
-                            {idWarehouse === ""
+                            {/*  {idWarehouse === ""
                                 ?
                                 <Warehouses title={"Warehouses"} chooseProduct={openProductTableHandle}
                                             isShowModal={showAddWarehoseModal}
-                                            checkedAll={(value) => setCheckedAll(value)}/>
+                                            checkedAll={(value) => setCheckedAll(value)}
+                                            value={checkedAll}/>
                                 :
                                 <Warehouse title={titleProduct} idWarehouse={idWarehouse}
                                            isShowModal={() => setShowInput(true)}
                                            checkedAll={(value) => setCheckedAllProduct(value)}
+                                           value={checkedAllProduct}
                                 />
-                            }
+                            }*/}
+
+
+                            <Routes>
+                                <Route path="/warehouses" element={<Warehouses title={"Warehouses"}
+                                                                               chooseProduct={openProductTableHandle}
+                                                                               isShowModal={showAddWarehoseModal}
+                                                                               checkedAll={(value) => setCheckedAll(value)}
+                                                                               value={checkedAll}/>}/>
+                                <Route path="warehouses/warehouse" element={<Warehouse title={titleProduct} idWarehouse={idWarehouse}
+                                                                                       isShowModal={() => setShowInput(true)}
+                                                                                       checkedAll={(value) => setCheckedAllProduct(value)}
+                                                                                       value={checkedAllProduct}/>}/>
+                                <Route path='/home' element={<Home/>}/>
+                                <Route path='/' element={<Home/>}/>
+                                <Route path='/accounts' element={<Account/>}/>
+                                <Route path='/cards' element={<Cards/>}/>
+                                <Route path='/contacts' element={<Contacts/>}/>
+                                <Route path='/chat' element={<Chat/>}/>
+                            </Routes>
+
                         </div>
                     </div>
                 </div>
