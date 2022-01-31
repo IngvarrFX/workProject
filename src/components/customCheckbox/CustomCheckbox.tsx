@@ -13,7 +13,7 @@ type CustomCheckboxPropsType = {
 export const CustomCheckbox: React.FC<CustomCheckboxPropsType> = ({onChangeChecked, value}) => {
 
     return (
-        <div className={value ? styles.checked : styles.checkbox} onClick={() => onChangeChecked(!value)}>
+        <div className={`${styles.checkbox} ${value && styles.checked}`} onClick={() => onChangeChecked(!value)}>
             {value && <CheckedSVG/>}
         </div>
     );
@@ -21,3 +21,5 @@ export const CustomCheckbox: React.FC<CustomCheckboxPropsType> = ({onChangeCheck
 
 
 /*[`checkbox ${value ? "checked": ""}`]*/
+/*
+className={value ? styles.checked : styles.checkbox}*/
