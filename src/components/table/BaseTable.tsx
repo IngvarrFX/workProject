@@ -102,6 +102,8 @@ export const WrappedComponent:React.FC<BasicTablePropsType> = ({theadData,
                                                             checkedAll,
                                                             changeCheckedWarehouse,
                                                             value}) => {
+
+
     const navigate = useNavigate()
 
     return <BasicTable trow={trow} changeCheckedWarehouse={changeCheckedWarehouse} checkedAll={checkedAll} chooseProduct={chooseProduct} value={value} theadData={theadData} navigate={navigate} />

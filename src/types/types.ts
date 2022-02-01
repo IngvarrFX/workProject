@@ -37,7 +37,7 @@ export type ApiDataType = {
                 "unit": string
             }
         },
-        "twist": null| string
+        "twist": null | {}
     },
     "ingredients": {
         "malt": [
