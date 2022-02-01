@@ -1,6 +1,6 @@
 import React, {useMemo} from "react";
 import styles from "./Warehouses.module.css"
-import {BasicTable} from "../table/BaseTable";
+import {BasicTable, WrappedComponent} from "../table/BaseTable";
 import {DataType, WarehouseType} from "../../data"
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../store/store";
@@ -74,7 +74,7 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
             </div>
 
             <div className={styles.table}>
-                <BasicTable theadData={theadData} trow={data} chooseProduct={chooseProduct} checkedAll={checkedAll}
+                <WrappedComponent theadData={theadData} trow={data} chooseProduct={chooseProduct} checkedAll={checkedAll}
                             changeCheckedWarehouse={setCheckWarehouse}
                             value={value}
                 />
