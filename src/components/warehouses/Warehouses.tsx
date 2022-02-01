@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo} from "react";
 import styles from "./Warehouses.module.css"
-import {BasicTable, WrappedComponent} from "../table/BaseTable";
+import {BasicTable} from "../table/BaseTable";
 import {DataType, WarehouseType} from "../../data"
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../store/store";
@@ -8,6 +8,7 @@ import {setCheckedWarehouseAC} from "../../store/actions/setCheckWarehouse";
 import {Footer} from "../footer/Footer";
 import {removeWarehouses} from "../../store/actions/removeWarehouses";
 import {ApiDataType} from "../../types/types";
+import {WrappedComponent} from "../table/tableData";
 
 
 type WarehousesPropsType = {
@@ -21,10 +22,10 @@ type WarehousesPropsType = {
 
 export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct, isShowModal, checkedAll, value}) => {
 
-    const data = useSelector<AppStateType, DataType>(state => state.warehouses)
-    const theadData: Array<string> = ["All stores", "Number of products", "Length, m", "Width, m", "Height, m"]
-    /*const data = useSelector<AppStateType, ApiDataType[]>(state => state.table)
-    const theadData: Array<string> = ["Id", "Name", "Tagline", "First_brewed", "Image"]*/
+    /*const data = useSelector<AppStateType, DataType>(state => state.warehouses)
+    const theadData: Array<string> = ["All stores", "Number of products", "Length, m", "Width, m", "Height, m"]*/
+    const data = useSelector<AppStateType, ApiDataType[]>(state => state.table)
+    const theadData: Array<string> = ["Id", "Name", "Tagline", "First_brewed", "Image"]
 
     //const [successModal, setSuccessModal] = React.useState(false)
 
@@ -40,9 +41,9 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
 
 
     const selectedItems = useMemo(() => {
-        let result = data.filter(warehouse => warehouse.selected)
+        /*let result = data.filter(warehouse => warehouse.selected)
         checkedWarehousesItem = result.map((obj: WarehouseType) => obj.id);
-        return checkedWarehousesItem.length
+        return checkedWarehousesItem.length*/
     }, [data])
 
 

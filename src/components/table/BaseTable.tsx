@@ -32,7 +32,6 @@ type TableProps = {
 };
 
 
-/*
 export const BasicTable: React.FC<BasicTablePropsType> = ({
                                                               theadData,
                                                               trow,
@@ -78,7 +77,7 @@ export const BasicTable: React.FC<BasicTablePropsType> = ({
                                 <CustomCheckbox value={row.selected}
                                                 onChangeChecked={(value) => changeCheckedWarehouse(value, row.id)}/>
 
-                                {/!*<input checked={row.selected} readOnly onChange={(e)=>changeCheckedWarehouse(e.currentTarget.checked, row.id)} type={"checkbox"} style={{textAlign: "center"}}/>*!/}
+                                {/*<input checked={row.selected} readOnly onChange={(e)=>changeCheckedWarehouse(e.currentTarget.checked, row.id)} type={"checkbox"} style={{textAlign: "center"}}/>*/}
                                 <button style={{marginLeft: 12, userSelect: "none"}} className={styles.button}
                                         onClick={() => onClickHandle(row.id, row.title)}>{row.title}</button>
                             </TableCell>
@@ -94,9 +93,8 @@ export const BasicTable: React.FC<BasicTablePropsType> = ({
     );
 }
 
-*/
 
-export const WrappedComponent:React.FC<BasicTablePropsType> = ({theadData,
+/*export const WrappedComponent:React.FC<BasicTablePropsType> = ({theadData,
                                                             trow,
                                                             chooseProduct,
                                                             checkedAll,
@@ -173,7 +171,7 @@ export class BasicTable extends React.Component<TableProps> {
             </Table>
         </TableContainer>;
     }
-}
+}*/
 
 /*import React from "react";
 import {TableHeadItem} from "./TableHeadItem";
