@@ -1,16 +1,22 @@
-import {take, takeEvery} from "redux-saga/effects"
+import {takeEvery, put} from "redux-saga/effects"
+import {setData} from "../actions/setData";
 
-export function* workerSaga() {
-    console.log("Saga click!")
+
+const getData = async () => {
+    const request = await fetch("https://api.punkapi.com/v2/beers");
+    return request.json();
+}
+
+export function* workerSaga(): {} {
+
+    const data = yield getData()
+    yield put(setData(data))
 }
 
 
 export function* watchClickSaga() {
-    /*while (true) {
-        yield take("CLICK")
-        yield workerSaga
-    }*/
-    yield takeEvery("CLICK", workerSaga)
+
+    yield takeEvery("LOAD_DATA", workerSaga)
 
 }
 

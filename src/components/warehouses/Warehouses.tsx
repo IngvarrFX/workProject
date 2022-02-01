@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import React, {useEffect, useMemo} from "react";
 import styles from "./Warehouses.module.css"
 import {BasicTable, WrappedComponent} from "../table/BaseTable";
 import {DataType, WarehouseType} from "../../data"
@@ -7,8 +7,7 @@ import {AppStateType} from "../../store/store";
 import {setCheckedWarehouseAC} from "../../store/actions/setCheckWarehouse";
 import {Footer} from "../footer/Footer";
 import {removeWarehouses} from "../../store/actions/removeWarehouses";
-
-
+import {ApiDataType} from "../../types/types";
 
 
 type WarehousesPropsType = {
@@ -20,23 +19,30 @@ type WarehousesPropsType = {
 }
 
 
-
 export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct, isShowModal, checkedAll, value}) => {
 
     const data = useSelector<AppStateType, DataType>(state => state.warehouses)
     const theadData: Array<string> = ["All stores", "Number of products", "Length, m", "Width, m", "Height, m"]
+    /*const data = useSelector<AppStateType, ApiDataType[]>(state => state.table)
+    const theadData: Array<string> = ["Id", "Name", "Tagline", "First_brewed", "Image"]*/
 
-    const [succsessModal, setSuccsessModal] = React.useState(false)
+    //const [successModal, setSuccessModal] = React.useState(false)
 
     const dispatch = useDispatch()
 
-    let chekedWarehousesItem: string[] = []
+
+    useEffect(() => {
+        dispatch({type: "LOAD_DATA"})
+    }, [])
+
+
+    let checkedWarehousesItem: string[] = []
 
 
     const selectedItems = useMemo(() => {
         let result = data.filter(warehouse => warehouse.selected)
-        chekedWarehousesItem = result.map((obj: WarehouseType) => obj.id);
-        return chekedWarehousesItem.length
+        checkedWarehousesItem = result.map((obj: WarehouseType) => obj.id);
+        return checkedWarehousesItem.length
     }, [data])
 
 
@@ -50,7 +56,7 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
 
     const deleteItem = () => {
         checkedAll(false)
-        dispatch(removeWarehouses(chekedWarehousesItem))
+        dispatch(removeWarehouses(checkedWarehousesItem))
     }
 
     const footerStyle = {
@@ -69,20 +75,23 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
                         <option>Chocklate</option>
                         <option>Pancakes</option>
                     </select>
-                    <button className={styles.addButton} onClick={isShowModal} disabled={chekedWarehousesItem.length !== 0}>Add a warehouse +</button>
+                    <button className={styles.addButton} onClick={isShowModal}
+                            disabled={checkedWarehousesItem.length !== 0}>Add a warehouse +
+                    </button>
                 </div>
             </div>
 
             <div className={styles.table}>
-                <WrappedComponent theadData={theadData} trow={data} chooseProduct={chooseProduct} checkedAll={checkedAll}
-                            changeCheckedWarehouse={setCheckWarehouse}
-                            value={value}
+                <WrappedComponent theadData={theadData} trow={data} chooseProduct={chooseProduct}
+                                  checkedAll={checkedAll}
+                                  changeCheckedWarehouse={setCheckWarehouse}
+                                  value={value}
                 />
             </div>
             <div style={footerStyle}>
-                {chekedWarehousesItem.length
+                {checkedWarehousesItem.length
                     ?
-                    <Footer >
+                    <Footer>
                         <div className={styles.countSelect}>
                             Selected: {selectedItems}
                         </div>

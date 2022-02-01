@@ -10,6 +10,8 @@ import {DataType} from "../../data";
 import {Navigate, useNavigate} from "react-router-dom";
 import styles from "./Table.module.css"
 import {CustomCheckbox} from "../customCheckbox/CustomCheckbox";
+import {useDispatch} from "react-redux";
+import {ApiDataType} from "../../types/types";
 
 
 type BasicTablePropsType = {
@@ -102,6 +104,8 @@ export const WrappedComponent:React.FC<BasicTablePropsType> = ({theadData,
                                                             checkedAll,
                                                             changeCheckedWarehouse,
                                                             value}) => {
+
+
     const navigate = useNavigate()
 
     return <BasicTable trow={trow} changeCheckedWarehouse={changeCheckedWarehouse} checkedAll={checkedAll} chooseProduct={chooseProduct} value={value} theadData={theadData} navigate={navigate} />

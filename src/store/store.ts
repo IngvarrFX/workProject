@@ -4,6 +4,7 @@ import createSagaMiddleware from 'redux-saga'
 import {AppReducer} from "./reducers/appReducer";
 import {WarehouseReducer} from "./reducers/warehouseReducer";
 import {rootSaga} from "./sagas";
+import {tableReducer} from "./reducers/tableReducer";
 
 
 const sagaMiddleware = createSagaMiddleware()
@@ -11,6 +12,7 @@ const sagaMiddleware = createSagaMiddleware()
 const rootReducer = combineReducers({
     app: AppReducer,
     warehouses: WarehouseReducer,
+    table: tableReducer,
 });
 
 export type AppStateType = ReturnType<typeof rootReducer>
@@ -18,7 +20,7 @@ export type AppDispatch = typeof store.dispatch
 
 
 const store = createStore(rootReducer,
-   applyMiddleware(thunk, sagaMiddleware)
+    applyMiddleware(thunk, sagaMiddleware)
 );
 
 sagaMiddleware.run(rootSaga)

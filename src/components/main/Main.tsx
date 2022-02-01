@@ -33,7 +33,8 @@ export const Main = () => {
 
     const [checkedAll, setCheckedAll] = useState(false)
     const [checkedAllProduct, setCheckedAllProduct] = useState(false)
-    const [succsessModal, setSuccsessModal] = React.useState(false)
+    const [successModal, setSuccessModal] = React.useState(false)
+
 
 
     const dispatch = useDispatch()
@@ -41,9 +42,10 @@ export const Main = () => {
     const [showInput, setShowInput] = useState(false)
     //const [showProductModal, setShowProductModal] = useState(false)
     const [name, setName] = useState("")
-    const [lenght, setLenght] = useState("")
+    const [length, setLength] = useState("")
     const [width, setWidth] = useState("")
     const [height, setHeight] = useState("")
+
 
 
     const openProductTableHandle = (id: string, title: string) => {
@@ -78,13 +80,13 @@ export const Main = () => {
     }
 
     const addWarehouse = () => {
-        dispatch(AddWarehouse(v1(), name, lenght, width, height))
+        dispatch(AddWarehouse(v1(), name, length, width, height))
         setName("")
-        setLenght("")
+        setLength("")
         setWidth("")
         setHeight("")
         setStep(s => s + 1)
-        setSuccsessModal(true)
+        setSuccessModal(true)
     }
 
     const closeCreateWarehouseModal = () => {
@@ -95,11 +97,11 @@ export const Main = () => {
 
     const closeSuccessModal = () => {
         setStep(0)
-        setSuccsessModal(false)
+        setSuccessModal(false)
     }
 
 
-    const disable = name === "" || lenght === "" || width === "" || height === ""
+    const disable = name === "" || length === "" || width === "" || height === ""
 
 
     const stepModalWarehouses = (step: number) => {
@@ -109,7 +111,7 @@ export const Main = () => {
                     <div style={{display: "flex", flexDirection: "column", width: 100}}>
                         <Input value={name} setValue={(value) => setName(value)}
                                placeholder={"Enter a name"} label={"Name of the warehouse"}/>
-                        <Input value={lenght} setValue={(value) => setLenght(value)}
+                        <Input value={length} setValue={(value) => setLength(value)}
                                placeholder={"Enter the length"} label={"Length, m"}/>
                         <Input value={width} setValue={(value) => setWidth(value)}
                                placeholder={"Enter the width"} label={"Width, m"}/>
@@ -122,7 +124,7 @@ export const Main = () => {
                     </div>
                 </AddWarehouseModal>
             case 2:
-                return <SuccsessModal isOpen={succsessModal} toggleMode={() => setSuccsessModal(false)}>
+                return <SuccsessModal isOpen={successModal} toggleMode={() => setSuccessModal(false)}>
                     <img className={styles.img} src={success}/>
                     <span className={styles.successTitle}>Warehouse successfully added</span>
                     <button className={styles.addButton} onClick={closeSuccessModal}>Continue
@@ -156,21 +158,6 @@ export const Main = () => {
                         </div>
                         {stepModalWarehouses(step)}
                         <div className={styles.contentBlock}>
-                            {/*  {idWarehouse === ""
-                                ?
-                                <Warehouses title={"Warehouses"} chooseProduct={openProductTableHandle}
-                                            isShowModal={showAddWarehoseModal}
-                                            checkedAll={(value) => setCheckedAll(value)}
-                                            value={checkedAll}/>
-                                :
-                                <Warehouse title={titleProduct} idWarehouse={idWarehouse}
-                                           isShowModal={() => setShowInput(true)}
-                                           checkedAll={(value) => setCheckedAllProduct(value)}
-                                           value={checkedAllProduct}
-                                />
-                            }*/}
-
-
                             <Routes>
                                 <Route path="/warehouses" element={<Warehouses title={"Warehouses"}
                                                                                chooseProduct={openProductTableHandle}

@@ -6,7 +6,7 @@ export const Home = () => {
     const dispatch = useDispatch()
 
     const clickHandle = () => {
-        dispatch({type: "CLICK"})
+        dispatch({type: "LOAD_DATA"})
     }
     return (
         <div>
