@@ -1,5 +1,7 @@
-import {takeEvery, put} from "redux-saga/effects"
+import {takeEvery, put, call} from "redux-saga/effects"
 import {setData} from "../actions/setData";
+import {ApiDataType, InitialStateType} from "../../types/types";
+import {setCheckedItemAC} from "../actions/setCheckItem";
 
 
 const getData = async () => {
@@ -7,16 +9,29 @@ const getData = async () => {
     return request.json();
 }
 
-export function* workerSaga(): {} {
+const transformData = (data: ApiDataType[]): InitialStateType[] => {
+    return data.map(item => ({...item, selected: false}))
+}
 
-    const data = yield getData()
-    yield put(setData(data))
+export function* getDataSaga(): {} {
+
+    const data = yield call(getData)
+    const resultData = yield call(transformData,data)
+    yield put(setData(resultData))
+}
+
+
+
+export function* setCheckedSaga(action:any): {} {
+    console.log("setCheckedSaga")
+    yield put(setCheckedItemAC(action.payload))
 }
 
 
 export function* watchClickSaga() {
 
-    yield takeEvery("LOAD_DATA", workerSaga)
+    yield takeEvery("LOAD_DATA", getDataSaga)
+    yield takeEvery("SET_CHECKED", setCheckedSaga)
 
 }
 

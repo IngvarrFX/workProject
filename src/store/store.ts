@@ -1,5 +1,5 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import thunk from "redux-thunk";
+import thunkMiddleware from "redux-thunk";
 import createSagaMiddleware from 'redux-saga'
 import {AppReducer} from "./reducers/appReducer";
 import {WarehouseReducer} from "./reducers/warehouseReducer";
@@ -20,7 +20,7 @@ export type AppDispatch = typeof store.dispatch
 
 
 const store = createStore(rootReducer,
-    applyMiddleware(thunk, sagaMiddleware)
+    applyMiddleware(thunkMiddleware, sagaMiddleware)
 );
 
 sagaMiddleware.run(rootSaga)

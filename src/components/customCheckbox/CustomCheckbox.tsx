@@ -20,6 +20,3 @@ export const CustomCheckbox: React.FC<CustomCheckboxPropsType> = ({onChangeCheck
 };
 
 
-/*[`checkbox ${value ? "checked": ""}`]*/
-/*
-className={value ? styles.checked : styles.checkbox}*/

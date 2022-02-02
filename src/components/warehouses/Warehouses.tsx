@@ -1,13 +1,10 @@
 import React, {useEffect, useMemo} from "react";
 import styles from "./Warehouses.module.css"
-import {BasicTable} from "../table/BaseTable";
-import {DataType, WarehouseType} from "../../data"
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../store/store";
-import {setCheckedWarehouseAC} from "../../store/actions/setCheckWarehouse";
 import {Footer} from "../footer/Footer";
 import {removeWarehouses} from "../../store/actions/removeWarehouses";
-import {ApiDataType} from "../../types/types";
+import {InitialStateType} from "../../types/types";
 import {WrappedComponent} from "../table/tableData";
 
 
@@ -24,7 +21,7 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
 
     /*const data = useSelector<AppStateType, DataType>(state => state.warehouses)
     const theadData: Array<string> = ["All stores", "Number of products", "Length, m", "Width, m", "Height, m"]*/
-    const data = useSelector<AppStateType, ApiDataType[]>(state => state.table)
+    const data = useSelector<AppStateType, InitialStateType[]>(state => state.table)
     const theadData: Array<string> = ["Id", "Name", "Tagline", "First_brewed", "Image"]
 
     //const [successModal, setSuccessModal] = React.useState(false)
@@ -40,20 +37,26 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
     let checkedWarehousesItem: string[] = []
 
 
+
+
     const selectedItems = useMemo(() => {
-        /*let result = data.filter(warehouse => warehouse.selected)
-        checkedWarehousesItem = result.map((obj: WarehouseType) => obj.id);
-        return checkedWarehousesItem.length*/
+        let result = data.filter(item => item.selected)
+        checkedWarehousesItem = result.map((obj: InitialStateType) => obj.id.toString());
+        return checkedWarehousesItem.length
     }, [data])
 
 
+
     const setCheckWarehouse = (value: boolean, warehouseId: string) => {
-        dispatch(setCheckedWarehouseAC(value, warehouseId))
+        console.log(value)
+        //dispatch({type: "SET_CHECKED", payload: {value, id: warehouseId}})
     }
 
-    const editWarehouse = () => {
 
-    }
+
+    // const editWarehouse = () => {
+    //
+    // }
 
     const deleteItem = () => {
         checkedAll(false)
@@ -83,7 +86,8 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
             </div>
 
             <div className={styles.table}>
-                <WrappedComponent theadData={theadData} trow={data} chooseProduct={chooseProduct}
+                <WrappedComponent theadData={theadData} trow={data}
+                                  chooseProduct={chooseProduct}
                                   checkedAll={checkedAll}
                                   changeCheckedWarehouse={setCheckWarehouse}
                                   value={value}

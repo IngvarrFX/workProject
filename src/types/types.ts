@@ -1,4 +1,4 @@
-export type ApiDataType = {
+export interface ApiDataType  {
     "id": number
     "name": string
     "tagline": string
@@ -112,4 +112,8 @@ export type ApiDataType = {
         ],
         "yeast": string
     }
+}
+
+export interface InitialStateType extends ApiDataType{
+    selected: boolean
 }
