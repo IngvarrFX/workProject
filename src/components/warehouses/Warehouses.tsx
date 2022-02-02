@@ -49,7 +49,7 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
 
     const setCheckWarehouse = (value: boolean, warehouseId: string) => {
         console.log(value)
-        //dispatch({type: "SET_CHECKED", payload: {value, id: warehouseId}})
+        dispatch({type: "SET_CHECKED", payload: {value, id: warehouseId}})
     }
 
 

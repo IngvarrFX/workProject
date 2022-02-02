@@ -16,13 +16,12 @@ const transformData = (data: ApiDataType[]): InitialStateType[] => {
 export function* getDataSaga(): {} {
 
     const data = yield call(getData)
-    const resultData = yield call(transformData,data)
+    const resultData = yield call(transformData, data)
     yield put(setData(resultData))
 }
 
 
-
-export function* setCheckedSaga(action:any): {} {
+export function* setCheckedSaga(action: { type: "SET_CHECKED", payload: { value: boolean, id: string } }): {} {
     console.log("setCheckedSaga")
     yield put(setCheckedItemAC(action.payload))
 }

@@ -6,7 +6,7 @@ import styles from "./CustomCheckbox.module.css"
 
 
 type CustomCheckboxPropsType = {
-    onChangeChecked: (value: boolean, id?: string) => void
+    onChangeChecked: (value: boolean) => void
     value: boolean
 }
 
