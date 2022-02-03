@@ -34,7 +34,7 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title,  chooseProduct
 
     useEffect(() => {
         dispatch({type: "LOAD_DATA"})
-    }, [])
+    }, [dispatch])
 
 
     let checkedWarehousesItem: string[] = []

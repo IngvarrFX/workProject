@@ -2,7 +2,7 @@ import {takeEvery, put, call} from "redux-saga/effects"
 import {setData} from "../actions/setData";
 import {ApiDataType, ApiImprovedDataType} from "../../types/types";
 import {setCheckedItemAC} from "../actions/setCheckItem";
-import {setEditItemAC} from "../actions/editItemAC";
+
 
 
 const getData = async () => {
@@ -26,17 +26,10 @@ export function* setCheckedSaga(action: { type: "SET_CHECKED", payload: { value:
 }
 
 
-export function* editItemSaga(action: { type: "EDIT_ITEM", payload: { id: string, name: string, tagline: string, firstBrewed: string, imageUrl: string } }): {} {
-    /*yield put(setEditItemAC(action.payload))*/
-    console.log("Edit item saga")
-}
-
 
 export function* watchClickSaga() {
     yield takeEvery("LOAD_DATA", getDataSaga)
     yield takeEvery("SET_CHECKED", setCheckedSaga)
-    yield takeEvery("EDIT_ITEM", editItemSaga)
-
 }
 
 

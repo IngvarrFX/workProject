@@ -1,7 +1,7 @@
 .loginPage {
     background: linear-gradient(to right, #FFFFFF 68%, #E4EEF8 22%);
-    height: 100vh;
     position: relative;
+    height: 100vh;
 }
 .trackBg{
     position: absolute;
@@ -49,7 +49,7 @@
     font-weight: 600;
     font-size: 14px;
     border-radius: 3px;
-    margin-bottom: 210px;
+    margin-bottom: 125px;
     cursor: pointer;
 }
 
