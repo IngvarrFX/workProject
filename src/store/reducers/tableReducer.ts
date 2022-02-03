@@ -21,7 +21,7 @@ export const tableReducer = (state = initialState, action: ActionType): InitialS
 
         case "ADD_ITEM": {
             return {
-                ...state, items: [...state.items, {
+                ...state, items: [{
                     "id": action.id,
                     "name": action.name,
                     "tagline": action.tagline,
@@ -136,7 +136,7 @@ export const tableReducer = (state = initialState, action: ActionType): InitialS
                         ],
                         "yeast": "string",
                     }
-                }]
+                },...state.items]
             }
         }
 

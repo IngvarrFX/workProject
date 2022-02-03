@@ -4,11 +4,10 @@ import MainContainer from "../../common/style/MainContainer.module.css"
 import styles from "./Main.module.css"
 import {Warehouses} from "../warehouses/Warehouses";
 import {Warehouse} from "../warehouses/Warehouse";
-import {AddWarehouse} from "../../store/actions/addWarehouse";
 import {useDispatch} from "react-redux";
 import {AddWarehouseModal} from "../modal/addWarehouseModal/AddWarehouseModal";
 import {Input} from "../input/Input";
-import {Routes, Route} from "react-router-dom"
+import {Route, Routes} from "react-router-dom"
 import success from "../../assets/successWarehouse.svg";
 import {SuccsessModal} from "../modal/succsessModal/SuccsessModal";
 import {setCheckedWarehouses} from "../../store/actions/setChecked";
@@ -37,6 +36,8 @@ export const Main = () => {
     const [successModal, setSuccessModal] = React.useState(false)
 
 
+    //const editItem = useSelector<App>()
+
     const dispatch = useDispatch()
 
     const [showInput, setShowInput] = useState(false)
@@ -51,7 +52,6 @@ export const Main = () => {
         setIdWarehouse(id)
         setTitleProduct(title)
     }
-
 
 
     if (checkedAll) {
@@ -88,6 +88,10 @@ export const Main = () => {
         setHeight("")
         setStep(s => s + 1)
         setSuccessModal(true)
+    }
+
+    const editItem = (id: string) => {
+        dispatch(AddItem(v1(), name, length, width, height))
     }
 
     const closeCreateWarehouseModal = () => {
@@ -161,6 +165,7 @@ export const Main = () => {
                         <div className={styles.contentBlock}>
                             <Routes>
                                 <Route path="/warehouses" element={<Warehouses title={"Beers"}
+                                                                               editItem={editItem}
                                                                                chooseProduct={openProductTableHandle}
                                                                                isShowModal={showAddWarehoseModal}
                                                                                checkedAll={(value) => setCheckedAll(value)}

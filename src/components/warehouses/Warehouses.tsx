@@ -10,6 +10,7 @@ import {WrappedComponent} from "../table/tableData";
 
 type WarehousesPropsType = {
     title: string
+    editItem: (id: string) => void
     chooseProduct: (id: string, title: string) => void
     isShowModal: () => void
     checkedAll: (value: boolean) => void
@@ -17,7 +18,7 @@ type WarehousesPropsType = {
 }
 
 
-export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct, isShowModal, checkedAll, value}) => {
+export const Warehouses: React.FC<WarehousesPropsType> = ({title,editItem,  chooseProduct, isShowModal, checkedAll, value}) => {
 
     /*const data = useSelector<AppStateType, DataType>(state => state.warehouses)
     const theadData: Array<string> = ["All stores", "Number of products", "Length, m", "Width, m", "Height, m"]*/
@@ -37,8 +38,6 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
     let checkedWarehousesItem: string[] = []
 
 
-
-
     const selectedItems = useMemo(() => {
         let result = data.filter(item => item.selected)
         checkedWarehousesItem = result.map((obj: ApiImprovedDataType) => obj.id.toString());
@@ -46,17 +45,14 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
     }, [data])
 
 
-
     const setCheckWarehouse = (value: boolean, warehouseId: string) => {
-        console.log(value)
         dispatch({type: "SET_CHECKED", payload: {value, id: warehouseId}})
     }
 
 
-
-    // const editWarehouse = () => {
-    //
-    // }
+    const editItemHandle = () => {
+        editItem(checkedWarehousesItem[0])
+    }
 
     const deleteItem = () => {
         checkedAll(false)
@@ -74,7 +70,7 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
                 <div className={styles.title}>{title}</div>
                 <div className={styles.control}>
                     <select className={styles.select}>
-                        <option selected>Filter by</option>
+                        <option>Filter by</option>
                         <option>Apples</option>
                         <option>Chocklate</option>
                         <option>Pancakes</option>
@@ -101,7 +97,16 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
                             Selected: {selectedItems}
                         </div>
                         <div className={styles.btn}>
-                            <button onClick={deleteItem} className={styles.deleteBtn}>Delete</button>
+                            {
+                                checkedWarehousesItem.length === 1
+                                    ?
+                                    <div style={{display: "flex"}}>
+                                        <button onClick={editItemHandle} className={styles.deleteBtn}>Edit</button>
+                                        <button onClick={deleteItem} className={styles.deleteBtn}>Delete</button>
+                                    </div>
+                                    :
+                                    <button onClick={deleteItem} className={styles.deleteBtn}>Delete</button>
+                            }
                         </div>
                     </Footer>
                     : false

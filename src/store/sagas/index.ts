@@ -14,7 +14,6 @@ const transformData = (data: ApiDataType[]): ApiImprovedDataType[] => {
 }
 
 export function* getDataSaga(): {} {
-
     const data = yield call(getData)
     const resultData = yield call(transformData, data)
     yield put(setData(resultData))
@@ -22,13 +21,11 @@ export function* getDataSaga(): {} {
 
 
 export function* setCheckedSaga(action: { type: "SET_CHECKED", payload: { value: boolean, id: string } }): {} {
-    console.log("setCheckedSaga")
     yield put(setCheckedItemAC(action.payload))
 }
 
 
 export function* watchClickSaga() {
-
     yield takeEvery("LOAD_DATA", getDataSaga)
     yield takeEvery("SET_CHECKED", setCheckedSaga)
 

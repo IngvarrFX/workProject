@@ -6,11 +6,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import {DataType} from "../../data";
-import {Navigate, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import styles from "./Table.module.css"
 import {CustomCheckbox} from "../customCheckbox/CustomCheckbox";
-import {ApiDataType, ApiImprovedDataType} from "../../types/types";
+import {ApiImprovedDataType} from "../../types/types";
+import {v1} from "uuid";
 
 
 type BasicTablePropsType = {
@@ -96,7 +96,7 @@ export class TableData extends React.Component<TableProps> {
                 <TableBody>
                     {trow.map((row) => (
                         <TableRow
-                            key={row.name}
+                            key={row.id + v1()}
                             sx={{"&:last-child td, &:last-child th": {border: 0}}}
                         >
                             <TableCell component="th" scope="row">
