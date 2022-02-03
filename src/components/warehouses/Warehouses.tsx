@@ -80,7 +80,7 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
                         <option>Pancakes</option>
                     </select>
                     <button className={styles.addButton} onClick={isShowModal}
-                            disabled={checkedWarehousesItem.length !== 0}>Add a warehouse +
+                            disabled={checkedWarehousesItem.length !== 0}>Add a beer +
                     </button>
                 </div>
             </div>

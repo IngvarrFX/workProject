@@ -4,6 +4,7 @@ import {SetUncheckedWarehousesType} from "../actions/setUncheckedWarehouses";
 import {SetCheckedItemType} from "../actions/setCheckItem";
 import {SetCheckedWarehousesType} from "../actions/setChecked";
 import {AddItemType} from "../actions/addItem";
+import {RemoveWarehousesType} from "../actions/removeWarehouses";
 
 
 const initialState: InitialStateType = {
@@ -19,7 +20,8 @@ export const tableReducer = (state = initialState, action: ActionType): InitialS
         }
 
         case "ADD_ITEM": {
-            return {...state, items: [...state.items, {
+            return {
+                ...state, items: [...state.items, {
                     "id": action.id,
                     "name": action.name,
                     "tagline": action.tagline,
@@ -134,7 +136,8 @@ export const tableReducer = (state = initialState, action: ActionType): InitialS
                         ],
                         "yeast": "string",
                     }
-                }]}
+                }]
+            }
         }
 
         case "SET_CHECKED_ALL_WAREHOUSES": {
@@ -144,10 +147,15 @@ export const tableReducer = (state = initialState, action: ActionType): InitialS
             return {...state, items: state.items.map(item => ({...item, selected: false}))}
         }
         case "SET_CHECKED_ITEM": {
-            return {...state, items: state.items.map(item => item.id.toString() === action.payload.id ? {
-                ...item,
-                selected: action.payload.value
-            } : item)}
+            return {
+                ...state, items: state.items.map(item => item.id.toString() === action.payload.id ? {
+                    ...item,
+                    selected: action.payload.value
+                } : item)
+            }
+        }
+        case "REMOVE_WAREHOUSES": {
+            return {...state, items: state.items.filter(warehouse => !action.payload.includes(warehouse.id))}
         }
         default:
             return state
@@ -159,3 +167,4 @@ type ActionType = SetDataType
     | SetCheckedWarehousesType
     | SetUncheckedWarehousesType
     | AddItemType
+    | RemoveWarehousesType

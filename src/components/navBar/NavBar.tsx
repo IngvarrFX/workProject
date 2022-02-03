@@ -12,7 +12,7 @@ export const NavBar = () => {
                 <img src={logo} alt="logo"/>
             </div>
             <Link className={styles.home} to="/home">Home</Link>
-            <Link className={styles.warehouses} to="/warehouses">Warehouses</Link>
+            <Link className={styles.warehouses} to="/warehouses">Beers</Link>
             <Link className={styles.accounts} to="/accounts">Accounts</Link>
             <Link className={styles.cards} to="/cards">Cards</Link>
             <Link className={styles.contacts} to="/contacts">Contacts</Link>

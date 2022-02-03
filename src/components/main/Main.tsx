@@ -53,6 +53,7 @@ export const Main = () => {
     }
 
 
+
     if (checkedAll) {
         dispatch(setCheckedWarehouses())
     }
@@ -110,16 +111,16 @@ export const Main = () => {
                 return <AddWarehouseModal isShow={showInput} setIsShow={closeCreateWarehouseModal}>
                     <div style={{display: "flex", flexDirection: "column", width: 100}}>
                         <Input value={name} setValue={(value) => setName(value)}
-                               placeholder={"Enter a name"} label={"Name of the warehouse"}/>
+                               placeholder={"Enter a name"} label={"Name of the beer"}/>
                         <Input value={length} setValue={(value) => setLength(value)}
-                               placeholder={"Enter the length"} label={"Length, m"}/>
+                               placeholder={"Enter the tagline"} label={"Tagline"}/>
                         <Input value={width} setValue={(value) => setWidth(value)}
-                               placeholder={"Enter the width"} label={"Width, m"}/>
+                               placeholder={"Enter the first brewed"} label={"First brewed"}/>
                         <Input value={height} setValue={(value) => setHeight(value)}
-                               placeholder={"Enter the height"} label={"Height, m"}/>
+                               placeholder={"Enter the image url"} label={"Image URL"}/>
                         <button className={styles.addButton} style={{backgroundColor: disable ? "#E6E8EA" : ""}}
                                 disabled={disable} onClick={addWarehouse}>Add a
-                            warehouse
+                            beer
                         </button>
                     </div>
                 </AddWarehouseModal>
@@ -159,7 +160,7 @@ export const Main = () => {
                         {stepModalWarehouses(step)}
                         <div className={styles.contentBlock}>
                             <Routes>
-                                <Route path="/warehouses" element={<Warehouses title={"Warehouses"}
+                                <Route path="/warehouses" element={<Warehouses title={"Beers"}
                                                                                chooseProduct={openProductTableHandle}
                                                                                isShowModal={showAddWarehoseModal}
                                                                                checkedAll={(value) => setCheckedAll(value)}

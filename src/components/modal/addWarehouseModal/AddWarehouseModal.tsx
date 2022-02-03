@@ -37,7 +37,7 @@ export const AddWarehouseModal:React.FC<AddWarehouseModalPropsType> = ({isShow,s
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <h1 className={styles.titleModal}>Adding a warehouse</h1>
+                    <h1 className={styles.titleModal}>Adding a beer</h1>
                     <Typography id="modal-modal-title" variant="h6" component="h2" style={{display:"flex", flexDirection:"column", width: 300}}>
                         {children}
                     </Typography>
