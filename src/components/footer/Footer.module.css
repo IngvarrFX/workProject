@@ -12,7 +12,7 @@
     box-sizing: border-box;
     box-shadow: 0 -1px 15px rgba(62, 76, 89, 0.04);
     background: #FFFFFF;
-    transition: 1s;
+    transition: 0.5s;
     margin-bottom: -200px;
 }
 
