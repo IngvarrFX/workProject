@@ -1,6 +1,6 @@
 import {takeEvery, put, call} from "redux-saga/effects"
 import {setData} from "../actions/setData";
-import {ApiDataType, InitialStateType} from "../../types/types";
+import {ApiDataType, ApiImprovedDataType} from "../../types/types";
 import {setCheckedItemAC} from "../actions/setCheckItem";
 
 
@@ -9,8 +9,8 @@ const getData = async () => {
     return request.json();
 }
 
-const transformData = (data: ApiDataType[]): InitialStateType[] => {
-    return data.map(item => ({...item, selected: false}))
+const transformData = (data: ApiDataType[]): ApiImprovedDataType[] => {
+    return data.map(item => ({...item, selected: false, id: item.id.toString()}))
 }
 
 export function* getDataSaga(): {} {

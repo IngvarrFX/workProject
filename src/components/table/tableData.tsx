@@ -10,12 +10,12 @@ import {DataType} from "../../data";
 import {Navigate, useNavigate} from "react-router-dom";
 import styles from "./Table.module.css"
 import {CustomCheckbox} from "../customCheckbox/CustomCheckbox";
-import {ApiDataType, InitialStateType} from "../../types/types";
+import {ApiDataType, ApiImprovedDataType} from "../../types/types";
 
 
 type BasicTablePropsType = {
     theadData: string[]
-    trow: InitialStateType[]
+    trow: ApiImprovedDataType[]
     chooseProduct: (id: string, title: string) => void
     checkedAll: (value: boolean) => void
     changeCheckedWarehouse: (value: boolean, warehouseID: string) => void
@@ -25,7 +25,7 @@ type BasicTablePropsType = {
 type TableProps = {
     navigate: (value: string) => void
     theadData: string[]
-    trow: InitialStateType[]
+    trow: ApiImprovedDataType[]
     chooseProduct: (id: string, title: string) => void
     checkedAll: (value: boolean) => void
     changeCheckedWarehouse: (value: boolean, warehouseID: string) => void

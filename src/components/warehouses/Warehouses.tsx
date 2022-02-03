@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../store/store";
 import {Footer} from "../footer/Footer";
 import {removeWarehouses} from "../../store/actions/removeWarehouses";
-import {InitialStateType} from "../../types/types";
+import {ApiImprovedDataType} from "../../types/types";
 import {WrappedComponent} from "../table/tableData";
 
 
@@ -21,7 +21,7 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
 
     /*const data = useSelector<AppStateType, DataType>(state => state.warehouses)
     const theadData: Array<string> = ["All stores", "Number of products", "Length, m", "Width, m", "Height, m"]*/
-    const data = useSelector<AppStateType, InitialStateType[]>(state => state.table)
+    const data = useSelector<AppStateType, ApiImprovedDataType[]>(state => state.table.items)
     const theadData: Array<string> = ["Id", "Name", "Tagline", "First_brewed", "Image"]
 
     //const [successModal, setSuccessModal] = React.useState(false)
@@ -41,7 +41,7 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title, chooseProduct,
 
     const selectedItems = useMemo(() => {
         let result = data.filter(item => item.selected)
-        checkedWarehousesItem = result.map((obj: InitialStateType) => obj.id.toString());
+        checkedWarehousesItem = result.map((obj: ApiImprovedDataType) => obj.id.toString());
         return checkedWarehousesItem.length
     }, [data])
 

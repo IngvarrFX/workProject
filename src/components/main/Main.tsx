@@ -21,6 +21,7 @@ import {Account} from "../account/Account";
 import {Cards} from "../cards/Cards";
 import {Contacts} from "../contacts/Contacts";
 import {Chat} from "../chat/Chat";
+import {AddItem} from "../../store/actions/addItem";
 
 
 export const Main = () => {
@@ -36,7 +37,6 @@ export const Main = () => {
     const [successModal, setSuccessModal] = React.useState(false)
 
 
-
     const dispatch = useDispatch()
 
     const [showInput, setShowInput] = useState(false)
@@ -45,7 +45,6 @@ export const Main = () => {
     const [length, setLength] = useState("")
     const [width, setWidth] = useState("")
     const [height, setHeight] = useState("")
-
 
 
     const openProductTableHandle = (id: string, title: string) => {
@@ -80,7 +79,8 @@ export const Main = () => {
     }
 
     const addWarehouse = () => {
-        dispatch(AddWarehouse(v1(), name, length, width, height))
+        //dispatch(AddWarehouse(v1(), name, length, width, height))
+        dispatch(AddItem(v1(), name, length, width, height))
         setName("")
         setLength("")
         setWidth("")
@@ -164,10 +164,11 @@ export const Main = () => {
                                                                                isShowModal={showAddWarehoseModal}
                                                                                checkedAll={(value) => setCheckedAll(value)}
                                                                                value={checkedAll}/>}/>
-                                <Route path="warehouses/warehouse" element={<Warehouse title={titleProduct} idWarehouse={idWarehouse}
-                                                                                       isShowModal={() => setShowInput(true)}
-                                                                                       checkedAll={(value) => setCheckedAllProduct(value)}
-                                                                                       value={checkedAllProduct}/>}/>
+                                <Route path="warehouses/warehouse"
+                                       element={<Warehouse title={titleProduct} idWarehouse={idWarehouse}
+                                                           isShowModal={() => setShowInput(true)}
+                                                           checkedAll={(value) => setCheckedAllProduct(value)}
+                                                           value={checkedAllProduct}/>}/>
                                 <Route path='/home' element={<Home/>}/>
                                 <Route path='/' element={<Home/>}/>
                                 <Route path='/accounts' element={<Account/>}/>

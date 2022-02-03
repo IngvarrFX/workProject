@@ -1,5 +1,5 @@
 export interface ApiDataType  {
-    "id": number
+    "id": string
     "name": string
     "tagline": string
     "first_brewed": string
@@ -37,7 +37,7 @@ export interface ApiDataType  {
                 "unit": string
             }
         },
-        "twist": null | {}
+        "twist": null
     },
     "ingredients": {
         "malt": [
@@ -114,6 +114,11 @@ export interface ApiDataType  {
     }
 }
 
-export interface InitialStateType extends ApiDataType{
+export interface ApiImprovedDataType extends ApiDataType{
     selected: boolean
+}
+
+export type InitialStateType = {
+    checkedAll: boolean
+    items: ApiImprovedDataType[] | []
 }
