@@ -5,6 +5,7 @@ import {SetCheckedItemType} from "../actions/setCheckItem";
 import {SetCheckedWarehousesType} from "../actions/setChecked";
 import {AddItemType} from "../actions/addItem";
 import {RemoveWarehousesType} from "../actions/removeWarehouses";
+import {SetEditItemACType} from "../actions/editItemAC";
 
 
 const initialState: InitialStateType = {
@@ -136,7 +137,7 @@ export const tableReducer = (state = initialState, action: ActionType): InitialS
                         ],
                         "yeast": "string",
                     }
-                },...state.items]
+                }, ...state.items]
             }
         }
 
@@ -157,6 +158,15 @@ export const tableReducer = (state = initialState, action: ActionType): InitialS
         case "REMOVE_WAREHOUSES": {
             return {...state, items: state.items.filter(warehouse => !action.payload.includes(warehouse.id))}
         }
+        case "EDIT_ITEM":{
+            return {...state, items: state.items.map(item => item.id === action.payload.id ? {
+                ...item,
+                    name: action.payload.name,
+                    tagline: action.payload.tagline,
+                    first_brewed: action.payload.firstBrewed,
+                    image_url: action.payload.imageUrl,
+            } :item)}
+        }
         default:
             return state
     }
@@ -168,3 +178,4 @@ type ActionType = SetDataType
     | SetUncheckedWarehousesType
     | AddItemType
     | RemoveWarehousesType
+    | SetEditItemACType

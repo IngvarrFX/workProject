@@ -4,7 +4,7 @@ import MainContainer from "../../common/style/MainContainer.module.css"
 import styles from "./Main.module.css"
 import {Warehouses} from "../warehouses/Warehouses";
 import {Warehouse} from "../warehouses/Warehouse";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AddWarehouseModal} from "../modal/addWarehouseModal/AddWarehouseModal";
 import {Input} from "../input/Input";
 import {Route, Routes} from "react-router-dom"
@@ -21,6 +21,9 @@ import {Cards} from "../cards/Cards";
 import {Contacts} from "../contacts/Contacts";
 import {Chat} from "../chat/Chat";
 import {AddItem} from "../../store/actions/addItem";
+import {AppStateType} from "../../store/store";
+import {ApiImprovedDataType} from "../../types/types";
+import {setEditItemAC} from "../../store/actions/editItemAC";
 
 
 export const Main = () => {
@@ -36,8 +39,6 @@ export const Main = () => {
     const [successModal, setSuccessModal] = React.useState(false)
 
 
-    //const editItem = useSelector<App>()
-
     const dispatch = useDispatch()
 
     const [showInput, setShowInput] = useState(false)
@@ -46,6 +47,8 @@ export const Main = () => {
     const [length, setLength] = useState("")
     const [width, setWidth] = useState("")
     const [height, setHeight] = useState("")
+
+    const [item, setItem] = useState<ApiImprovedDataType | null>(null)
 
 
     const openProductTableHandle = (id: string, title: string) => {
@@ -79,8 +82,10 @@ export const Main = () => {
         setStep(s => s + 1)
     }
 
+    const actionWithItem = () => {
+    }
+
     const addWarehouse = () => {
-        //dispatch(AddWarehouse(v1(), name, length, width, height))
         dispatch(AddItem(v1(), name, length, width, height))
         setName("")
         setLength("")
@@ -88,11 +93,32 @@ export const Main = () => {
         setHeight("")
         setStep(s => s + 1)
         setSuccessModal(true)
+
+        //dispatch(AddWarehouse(v1(), name, length, width, height))
     }
 
-    const editItem = (id: string) => {
-        dispatch(AddItem(v1(), name, length, width, height))
+    const isShowEditItemHandle = (item: ApiImprovedDataType) => {
+        setItem(item)
+        setName(item.name)
+        setLength(item.tagline)
+        setWidth(item.first_brewed)
+        setHeight(item.image_url)
+        setShowInput(true)
+        setStep(s => s + 1)
+
     }
+
+
+    const editItemHandle = () => {
+        setStep(s => s + 1)
+        setSuccessModal(true)
+        /*dispatch({
+            type: "EDIT_ITEM",
+            payload: {id: item?.id, name: name, tagline: length, firstBrewed: width, imageUrl: height}
+        })*/
+        dispatch(setEditItemAC({id: item?.id, name: name, tagline: length, firstBrewed: width, imageUrl: height}))
+    }
+
 
     const closeCreateWarehouseModal = () => {
         setStep(0)
@@ -122,10 +148,17 @@ export const Main = () => {
                                placeholder={"Enter the first brewed"} label={"First brewed"}/>
                         <Input value={height} setValue={(value) => setHeight(value)}
                                placeholder={"Enter the image url"} label={"Image URL"}/>
-                        <button className={styles.addButton} style={{backgroundColor: disable ? "#E6E8EA" : ""}}
-                                disabled={disable} onClick={addWarehouse}>Add a
-                            beer
-                        </button>
+                        {
+                            item
+                                ?
+                                <button className={styles.addButton} style={{backgroundColor: disable ? "#E6E8EA" : ""}}
+                                        disabled={disable} onClick={editItemHandle}>Edit a beer
+                                </button>
+                                :
+                                <button className={styles.addButton} style={{backgroundColor: disable ? "#E6E8EA" : ""}}
+                                        disabled={disable} onClick={addWarehouse}>Add a beer
+                                </button>
+                        }
                     </div>
                 </AddWarehouseModal>
             case 2:
@@ -165,7 +198,7 @@ export const Main = () => {
                         <div className={styles.contentBlock}>
                             <Routes>
                                 <Route path="/warehouses" element={<Warehouses title={"Beers"}
-                                                                               editItem={editItem}
+                                                                               isShowEditItem={isShowEditItemHandle}
                                                                                chooseProduct={openProductTableHandle}
                                                                                isShowModal={showAddWarehoseModal}
                                                                                checkedAll={(value) => setCheckedAll(value)}
@@ -182,7 +215,6 @@ export const Main = () => {
                                 <Route path='/contacts' element={<Contacts/>}/>
                                 <Route path='/chat' element={<Chat/>}/>
                             </Routes>
-
                         </div>
                     </div>
                 </div>

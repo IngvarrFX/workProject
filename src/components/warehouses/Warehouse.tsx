@@ -320,19 +320,15 @@ export const Warehouse: React.FC<WarehousePropsType> = ({title, idWarehouse, isS
                 {stepMoveProductModal(step)}
             </div>
             <div>
-                {chekedProductsItem.length !== 0
-                    ?
-                    <Footer>
-                        <div className={styles.countSelect}>
-                            Selected: {selectedItems}
-                        </div>
-                        <div className={styles.btn}>
-                            <button onClick={deleteItem} className={styles.deleteBtn}>Delete</button>
-                            <button onClick={moveItemModal} className={styles.moveBtn}>Move</button>
-                        </div>
-                    </Footer>
-                    : false
-                }
+                <Footer value={chekedProductsItem.length !== 0}>
+                    <div className={styles.countSelect}>
+                        Selected: {selectedItems}
+                    </div>
+                    <div className={styles.btn}>
+                        <button onClick={deleteItem} className={styles.deleteBtn}>Delete</button>
+                        <button onClick={moveItemModal} className={styles.moveBtn}>Move</button>
+                    </div>
+                </Footer>
             </div>
         </div>
     );

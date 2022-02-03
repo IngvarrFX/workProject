@@ -10,19 +10,21 @@ import {WrappedComponent} from "../table/tableData";
 
 type WarehousesPropsType = {
     title: string
-    editItem: (id: string) => void
+    //editDataItem: (id: ApiImprovedDataType) => void
     chooseProduct: (id: string, title: string) => void
     isShowModal: () => void
+    isShowEditItem : (id: ApiImprovedDataType) => void
     checkedAll: (value: boolean) => void
     value: boolean
 }
 
 
-export const Warehouses: React.FC<WarehousesPropsType> = ({title,editItem,  chooseProduct, isShowModal, checkedAll, value}) => {
+export const Warehouses: React.FC<WarehousesPropsType> = ({title,  chooseProduct, isShowModal, isShowEditItem, checkedAll, value}) => {
 
     /*const data = useSelector<AppStateType, DataType>(state => state.warehouses)
     const theadData: Array<string> = ["All stores", "Number of products", "Length, m", "Width, m", "Height, m"]*/
     const data = useSelector<AppStateType, ApiImprovedDataType[]>(state => state.table.items)
+    const editItem = useSelector<AppStateType, ApiImprovedDataType>(state => state.table.items.filter(item => item.selected)[0])
     const theadData: Array<string> = ["Id", "Name", "Tagline", "First_brewed", "Image"]
 
     //const [successModal, setSuccessModal] = React.useState(false)
@@ -51,7 +53,7 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title,editItem,  choo
 
 
     const editItemHandle = () => {
-        editItem(checkedWarehousesItem[0])
+        isShowEditItem(editItem)
     }
 
     const deleteItem = () => {
@@ -90,9 +92,7 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title,editItem,  choo
                 />
             </div>
             <div style={footerStyle}>
-                {checkedWarehousesItem.length
-                    ?
-                    <Footer>
+                    <Footer value={checkedWarehousesItem.length !== 0}>
                         <div className={styles.countSelect}>
                             Selected: {selectedItems}
                         </div>
@@ -109,8 +109,6 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title,editItem,  choo
                             }
                         </div>
                     </Footer>
-                    : false
-                }
             </div>
 
         </div>

@@ -28,6 +28,7 @@ type AddWarehouseModalPropsType = {
 
 export const AddWarehouseModal:React.FC<AddWarehouseModalPropsType> = ({isShow,setIsShow, children}) => {
 
+
     return (
         <div>
             <Modal
