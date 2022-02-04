@@ -1,10 +1,5 @@
 import React from 'react';
 
-
-
-
-
-
 export const Preloader = () => {
     return (
         <div>
@@ -12,5 +7,6 @@ export const Preloader = () => {
         </div>
     );
 };
+
 
 

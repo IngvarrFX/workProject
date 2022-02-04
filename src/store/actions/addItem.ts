@@ -1,18 +1,16 @@
-export const AddItem = (id: string, name: string, tagline: string, firstBrewed: string, image: string) => ({
-    type: "ADD_ITEM",
-    id,
-    name,
-    tagline,
-    firstBrewed,
-    image
-})
+export const AddItem = (payload: PayloadType) => ({type: "ADD_ITEM", payload})
+
+
+type PayloadType = {
+    id: string
+    name: string
+    tagline: string
+    first_brewed: string
+    image_url: string
+}
 
 
 export type AddItemType = {
     type: "ADD_ITEM"
-    id: string
-    name: string
-    tagline: string
-    firstBrewed: string
-    image: string
+    payload:PayloadType
 }

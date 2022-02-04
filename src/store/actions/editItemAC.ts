@@ -1,13 +1,15 @@
-export const setEditItemAC = (payload: { id: string | undefined, name: string, tagline: string, firstBrewed: string, imageUrl: string }): SetEditItemACType => ({
-    type: "EDIT_ITEM",
+export const setEditItemAC = (payload: { id: string, name: string, tagline: string, first_brewed: string, image_url: string }): SetEditItemACType => ({
+    type: "SET_EDIT_ITEM",
     payload
 })
 
 
 export type SetEditItemACType = {
-    type: "EDIT_ITEM"
+    type: "SET_EDIT_ITEM"
     payload: {
-        id: string | undefined, name: string, tagline: string, firstBrewed: string, imageUrl: string
+        id: string, name: string, tagline: string, first_brewed: string, image_url: string
     }
 
 }
+
+

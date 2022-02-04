@@ -6,21 +6,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import {useNavigate} from "react-router-dom";
 import styles from "./Table.module.css"
 import {CustomCheckbox} from "../customCheckbox/CustomCheckbox";
 import {ApiImprovedDataType} from "../../types/types";
 import {v1} from "uuid";
 
-
-type BasicTablePropsType = {
-    theadData: string[]
-    trow: ApiImprovedDataType[]
-    chooseProduct: (id: string, title: string) => void
-    checkedAll: (value: boolean) => void
-    changeCheckedWarehouse: (value: boolean, warehouseID: string) => void
-    value: boolean
-}
 
 type TableProps = {
     navigate: (value: string) => void
@@ -33,21 +23,7 @@ type TableProps = {
 };
 
 
-export const WrappedComponent: React.FC<BasicTablePropsType> = ({
-                                                                    theadData,
-                                                                    trow,
-                                                                    chooseProduct,
-                                                                    checkedAll,
-                                                                    changeCheckedWarehouse,
-                                                                    value
-                                                                }) => {
 
-
-    const navigate = useNavigate()
-
-    return <TableData trow={trow} changeCheckedWarehouse={changeCheckedWarehouse} checkedAll={checkedAll}
-                      chooseProduct={chooseProduct} value={value} theadData={theadData} navigate={navigate}/>
-}
 
 
 export class TableData extends React.Component<TableProps> {
@@ -61,16 +37,20 @@ export class TableData extends React.Component<TableProps> {
             theadData,
             trow,
             chooseProduct,
-            checkedAll,
             changeCheckedWarehouse,
             value,
             navigate,
+            checkedAll,
         } = this.props
 
 
         let onClickHandle = (id: string, title: string) => {
             chooseProduct(id, title)
             navigate("/warehouses/warehouse")
+        }
+
+        let onChangeCheckedAll = (value: boolean) => {
+            checkedAll(value)
         }
 
 
@@ -86,7 +66,7 @@ export class TableData extends React.Component<TableProps> {
                             th === "Id"
                                 ?
                                 <div style={{display: "flex", alignItems: "center"}}>
-                                    <CustomCheckbox value={value} onChangeChecked={checkedAll}/>
+                                    <CustomCheckbox value={value} onChangeChecked={onChangeCheckedAll}/>
                                     <div style={{marginLeft: 16}}>{th}</div>
                                 </div>
                                 : th
@@ -111,7 +91,7 @@ export class TableData extends React.Component<TableProps> {
                             <TableCell align="left">{row.tagline}</TableCell>
                             <TableCell align="left">{row.first_brewed}</TableCell>
                             <TableCell align="left">
-                                <img style={{width: 20}} src={row.image_url}/>
+                                <img style={{width: 20}} src={row.image_url} alt={"item"}/>
                             </TableCell>
                         </TableRow>
                     ))}

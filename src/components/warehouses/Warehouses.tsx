@@ -5,7 +5,8 @@ import {AppStateType} from "../../store/store";
 import {Footer} from "../footer/Footer";
 import {removeWarehouses} from "../../store/actions/removeWarehouses";
 import {ApiImprovedDataType} from "../../types/types";
-import {WrappedComponent} from "../table/tableData";
+import {WrappedComponent} from "../wrappedComponent/WrappedComponent";
+
 
 
 type WarehousesPropsType = {
@@ -14,12 +15,12 @@ type WarehousesPropsType = {
     chooseProduct: (id: string, title: string) => void
     isShowModal: () => void
     isShowEditItem : (id: ApiImprovedDataType) => void
-    checkedAll: (value: boolean) => void
-    value: boolean
+    /*checkedAll: (value: boolean) => void*/
+    /*value: boolean*/
 }
 
 
-export const Warehouses: React.FC<WarehousesPropsType> = ({title,  chooseProduct, isShowModal, isShowEditItem, checkedAll, value}) => {
+export const Warehouses: React.FC<WarehousesPropsType> = ({title,  chooseProduct, isShowModal, isShowEditItem}) => {
 
     /*const data = useSelector<AppStateType, DataType>(state => state.warehouses)
     const theadData: Array<string> = ["All stores", "Number of products", "Length, m", "Width, m", "Height, m"]*/
@@ -47,6 +48,11 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title,  chooseProduct
     }, [data])
 
 
+
+
+
+
+
     const setCheckWarehouse = (value: boolean, warehouseId: string) => {
         dispatch({type: "SET_CHECKED", payload: {value, id: warehouseId}})
     }
@@ -57,13 +63,11 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title,  chooseProduct
     }
 
     const deleteItem = () => {
-        checkedAll(false)
+        dispatch({type:"UNCHECKED_ALL"})
+        //checkedAll(false)
         dispatch(removeWarehouses(checkedWarehousesItem))
     }
 
-    const footerStyle = {
-        transition: "1s",
-    }
 
 
     return (
@@ -74,7 +78,7 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title,  chooseProduct
                     <select className={styles.select}>
                         <option>Filter by</option>
                         <option>Apples</option>
-                        <option>Chocklate</option>
+                        <option>Chocolate</option>
                         <option>Pancakes</option>
                     </select>
                     <button className={styles.addButton} onClick={isShowModal}
@@ -86,12 +90,12 @@ export const Warehouses: React.FC<WarehousesPropsType> = ({title,  chooseProduct
             <div className={styles.table}>
                 <WrappedComponent theadData={theadData} trow={data}
                                   chooseProduct={chooseProduct}
-                                  checkedAll={checkedAll}
+                                  //checkedAll={checkedAll}
                                   changeCheckedWarehouse={setCheckWarehouse}
-                                  value={value}
+                                  /*value={value}*/
                 />
             </div>
-            <div style={footerStyle}>
+            <div>
                     <Footer value={checkedWarehousesItem.length !== 0}>
                         <div className={styles.countSelect}>
                             Selected: {selectedItems}

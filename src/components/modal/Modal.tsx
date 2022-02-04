@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import styles from "./Modal.module.css"
 import {useFormik} from "formik";
-import {useDispatch} from "react-redux";
 import {FormLabel, TextField} from "@mui/material";
 
 const style = {
@@ -41,7 +40,6 @@ type FormikErrorType = {
 
 export const ModalWindow: React.FC<ModalWindowType> = ({
                                                            title,
-                                                           children,
                                                            titleModal,
                                                            onClick,
                                                            setEmail,
@@ -49,16 +47,15 @@ export const ModalWindow: React.FC<ModalWindowType> = ({
                                                            message,
                                                            isOpen,
                                                            setIsOpen,
-                                                           link,
                                                            setIsOpenModal,
                                                            linkTitle,
                                                        }) => {
     //const [open, setOpen] = React.useState(false);
     //const handleOpen = () => setOpen(true);
     //const handleClose = () => setOpen(false);
-    const dispatch = useDispatch()
 
-    const loginHadle = () => {
+
+    const loginHandle = () => {
         //setOpen(false)
         onClick(formik.values.email, formik.values.password)
     }
@@ -169,7 +166,7 @@ export const ModalWindow: React.FC<ModalWindowType> = ({
 
                         <button className={styles.submit} disabled={!!formik.errors.email || !!formik.errors.password}
                                 type="submit"
-                                onClick={loginHadle}>{title}</button>
+                                onClick={loginHandle}>{title}</button>
                         <div className={styles.message}>
                             <span>{message}</span>
                             <button className={styles.buttonLink} onClick={callModal}>{linkTitle}</button>

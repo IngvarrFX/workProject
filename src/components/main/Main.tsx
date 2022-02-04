@@ -10,8 +10,6 @@ import {Input} from "../input/Input";
 import {Route, Routes} from "react-router-dom"
 import success from "../../assets/successWarehouse.svg";
 import {SuccsessModal} from "../modal/succsessModal/SuccsessModal";
-import {setCheckedWarehouses} from "../../store/actions/setChecked";
-import {setUncheckedWarehouses} from "../../store/actions/setUncheckedWarehouses";
 import {setCheckedAllProductAC} from "../../store/actions/setCheckedAllProduct";
 import {setUnCheckedAllProductAC} from "../../store/actions/setUncheckedAllProduct";
 import {v1} from "uuid";
@@ -20,10 +18,8 @@ import {Account} from "../account/Account";
 import {Cards} from "../cards/Cards";
 import {Contacts} from "../contacts/Contacts";
 import {Chat} from "../chat/Chat";
-import {AddItem} from "../../store/actions/addItem";
 import {AppStateType} from "../../store/store";
 import {ApiImprovedDataType} from "../../types/types";
-import {setEditItemAC} from "../../store/actions/editItemAC";
 
 
 export const Main = () => {
@@ -34,12 +30,13 @@ export const Main = () => {
     const [step, setStep] = React.useState(0)
 
 
-    const [checkedAll, setCheckedAll] = useState(false)
+    //const [checkedAll, setCheckedAll] = useState(false)
     const [checkedAllProduct, setCheckedAllProduct] = useState(false)
     const [successModal, setSuccessModal] = React.useState(false)
 
 
     const dispatch = useDispatch()
+    //const checkedAll = useSelector<AppStateType, boolean>(state => state.table.checkedAll )
 
     const [showInput, setShowInput] = useState(false)
     //const [showProductModal, setShowProductModal] = useState(false)
@@ -57,12 +54,10 @@ export const Main = () => {
     }
 
 
-    if (checkedAll) {
-        dispatch(setCheckedWarehouses())
-    }
-    if (!checkedAll) {
-        dispatch(setUncheckedWarehouses())
-    }
+
+
+
+
     if (checkedAllProduct) {
         dispatch(setCheckedAllProductAC(idWarehouse))
     }
@@ -70,23 +65,19 @@ export const Main = () => {
         dispatch(setUnCheckedAllProductAC(idWarehouse))
     }
 
-    /* const addProduct = () => {
-         setName("")
-         setLenght("")
-         setWidth("")
-         setHeight("")
-     }*/
 
-    const showAddWarehoseModal = () => {
+    const showAddWarehouseModal = () => {
         setShowInput(true)
         setStep(s => s + 1)
     }
 
-    const actionWithItem = () => {
-    }
 
     const addWarehouse = () => {
-        dispatch(AddItem(v1(), name, length, width, height))
+        //dispatch(AddItem(v1(), name, length, width, height))
+        dispatch({
+            type: "ADD_NEW_ITEM",
+            payload: {id: v1(), name, tagline: length, first_brewed: width, image_url: height}
+        })
         setName("")
         setLength("")
         setWidth("")
@@ -112,11 +103,15 @@ export const Main = () => {
     const editItemHandle = () => {
         setStep(s => s + 1)
         setSuccessModal(true)
-        /*dispatch({
+
+        dispatch({
             type: "EDIT_ITEM",
-            payload: {id: item?.id, name: name, tagline: length, firstBrewed: width, imageUrl: height}
-        })*/
-        dispatch(setEditItemAC({id: item?.id, name: name, tagline: length, firstBrewed: width, imageUrl: height}))
+            payload: {id: item?.id, name, tagline: length, first_brewed: width, image_url: height}
+        })
+        setName("")
+        setLength("")
+        setWidth("")
+        setHeight("")
     }
 
 
@@ -163,7 +158,7 @@ export const Main = () => {
                 </AddWarehouseModal>
             case 2:
                 return <SuccsessModal isOpen={successModal} toggleMode={() => setSuccessModal(false)}>
-                    <img className={styles.img} src={success}/>
+                    <img className={styles.img} src={success} alt={"warehouse"}/>
                     <span className={styles.successTitle}>Warehouse successfully added</span>
                     <button className={styles.addButton} onClick={closeSuccessModal}>Continue
                     </button>
@@ -200,9 +195,9 @@ export const Main = () => {
                                 <Route path="/warehouses" element={<Warehouses title={"Beers"}
                                                                                isShowEditItem={isShowEditItemHandle}
                                                                                chooseProduct={openProductTableHandle}
-                                                                               isShowModal={showAddWarehoseModal}
-                                                                               checkedAll={(value) => setCheckedAll(value)}
-                                                                               value={checkedAll}/>}/>
+                                                                               isShowModal={showAddWarehouseModal}
+                                                                               /*checkedAll={(value) => setCheckedAll(value)}*/
+                                                                               /*value={checkedAll}*//>}/>
                                 <Route path="warehouses/warehouse"
                                        element={<Warehouse title={titleProduct} idWarehouse={idWarehouse}
                                                            isShowModal={() => setShowInput(true)}

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {ModalWindow} from "../modal/Modal";
 import {useDispatch} from "react-redux";
 import {setAuth} from "../../store/actions/setAuth";
@@ -31,13 +31,13 @@ export const Login = () => {
         setIsOpenSingUp(false)
     }
 
-    const handleScroll = () => {
+    /*const handleScroll = () => {
         window.scroll({
             top: document.body.offsetHeight,
             left: 0,
             behavior: "smooth",
         });
-    }
+    }*/
 
     return (
         <div className={styles.loginPage}>
